@@ -1,21 +1,69 @@
-# Documento de Requisitos
+funcionais;
 
-## Requisitos Funcionais
+Página Inicial
 
-### RF 01
+-apresentações de opções de compra
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit nulla vel diam vehicula, eu porttitor nulla aliquam.
+-botões rápidos para agendar banho e tosa/atendimento médico
 
-### RF 02
+Página com Serviços
 
-Nullam laoreet, mauris ac tempor vulputate, orci metus aliquet augue, at accumsan odio mi eu sapien. Aliquam tincidunt metus ut aliquet vehicula. Aliquam vitae arcu sed lacus fermentum sagittis.
+-listar os serviços (banho e tosa, consulta, vacina, brinquedos e acessórios)
 
-## Requisitos Não-Funcionais
+-descrever os serviços 
 
-### RNF 01
+-catálogos de produtos
 
-Nulla facilisi. Etiam tempus dolor et odio tincidunt fermentum. Donec pharetra nulla eu euismod maximus. Maecenas eu mauris tincidunt, pulvinar tellus sed, blandit eros.
+-botão para "agendar atendimento"
 
-### RNF 02
+Agendar Online
 
-Nam id enim ut quam faucibus scelerisque at non diam. Morbi eget eleifend lectus, quis fringilla elit. Morbi iaculis, elit vel accumsan hendrerit, ipsum purus varius lacus, eget facilisis massa mauris ac ipsum.
+-fazer um formulário contendo nome, telefone, tipo de pet, serviço, data e hora
+
+-Confirmar por email ou wtt
+
+Compra Online
+
+-carrinho de compra
+
+-sistema de pagamento (pix, cartão de crédito ou débito, boleto)
+
+-informa endereço (cep, bairro, número da casa, referência)
+
+Área do Cliente
+
+-executar login e cadastro
+
+-favoritos
+
+-historico de compras e agendamentos
+
+Área de contato
+
+-informar email, celular e redes sociais
+
+Área de Blog
+
+-Dicas de cuidados com pets 
+
+-Curiosidades dos animais 
+
+Área administrativa
+
+-cadastrar, editar ou excluir produtos, serviços e notícias do blog
+
+-gerenciar agendamentos
+
+Não funcionais
+
+-ser responsivo, funcionar bem em celular, pc e tablet 
+
+-ser rápido
+
+-ser seguro, protegendo os dados dos usuário e o pagamento
+
+-ser de fácil acesso, tendo botões e textos visíveis e objetivos
+
+-ser atualizado, tendo informações recentes dos produtos e das notícias
+
+-ser bonito e organizado
