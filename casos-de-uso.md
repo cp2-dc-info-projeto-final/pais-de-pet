@@ -1,103 +1,207 @@
-# Documento de Casos de Uso
+# UC1 – Visualizar Pagina Inicial
 
-## Lista dos Casos de Uso
+Objetivo: Permitir que o cliente veja as ofertas e acesse agendamentos.
 
- - [CDU 01](#CDU-01): Quisque id neque a erat imperdiet dictum et ut mauris.
- - [CDU 02](#CDU-02): Morbi fringilla dolor at mattis vestibulum.
- - [CDU 03](#CDU-03): Duis nec orci quis velit faucibus hendrerit tempus vel libero.
+Atores: Cliente, Visitante
 
+Pré-condições: Acesso ao site
 
-## Lista dos Atores
+## Fluxo Principal
 
- - Cras tempor
- - Donec a lorem
+o sistema carrega a index com uma menu para navegar pelo site
 
-## Diagrama de Casos de Uso
+o sistema exibe botões para fazer agendamentos(banho, tosa e consulta)
 
-![Diagrama de Casos de Uso](diagramas/diagrama-exemplo.png)
+Usuario seleciona um dos botões de agendamento [A1]
 
-## Descrição dos Casos de Uso
+o sistema mostra ícone do carrinho de compras 
 
-### CDU 01
+Usuario seleciona botão de carrinho de compras [A2]
 
-Quisque id neque a erat imperdiet dictum et ut mauris.
+Sistema mostra um rodapé com informações para contato
 
-#### Atores
+## Fluxo Alternativo
 
-1. Cras tempor
-2. Donec a lorem
+[A1]O usuario seleciona um agendamento:
+    1. Sistema redireciona usuario para agendamento
 
-#### Fluxo Principal
+[A2]O usuario abre o carrinho de compras:
+    1. Sistema redireciona usuario para carrinho de compras
+    2. Sistema mostra itens no carrinho de compra
 
-1. Vivamus nec velit id risus sodales fermentum ut a mi.
-2. Nunc a ligula ac libero pellentesque auctor ornare at sem.
-3. In quis ante scelerisque felis luctus malesuada.
-4. Pellentesque mattis dui quis eleifend accumsan.
+# UC2 – Ver Serviços
 
-**Diagrama de sequência XX**
+Objetivo: Mostrar serviços com descrição e botões de agendamento.
 
-![Diagrama de Sequência](diagramas/diagrama-exemplo.png)
+Atores: Cliente, Visitante
 
-#### Fluxo Alternativo A
+## Fluxo Principal:
 
-1. Pellentesque id mauris id ex fringilla iaculis.
-2. Maecenas ut dui at sapien rhoncus porttitor in sed turpis.
-3. Maecenas fringilla augue id sodales volutpat.
-4. Nulla vehicula lectus eu eros faucibus porta.
-5. Morbi non sem in diam dictum aliquet sit amet at metus.
-6. Aenean dictum diam in tempus ornare.
+O sistema mostra menu de serviços de banho, tosa, vacina e brinquedos
 
-#### Fluxo Alternativo B
+O usuario escolhe um serviço[A1] 
 
-1. Ut elementum dolor id lorem elementum, et condimentum eros laoreet.
-2. Nulla sollicitudin arcu nec suscipit volutpat.
-3. Aliquam mattis sapien nec ornare faucibus.
-4. Sed eu massa nec enim condimentum commodo at eget ligula.
-5. Nam ultricies velit nec erat feugiat condimentum.
-6. Nam vitae lacus porttitor, sodales orci vel, lobortis arcu.
+O sistema mostra botão de adicionar ao carrinho e botão de compra&&agendamento
 
+Usuario clica no botão de compra||agendamento[A2]
 
-### CDU 02
+## Fluxo Alternativo:
 
-Morbi fringilla dolor at mattis vestibulum.
+[A1]Usuario seleciona um serviço:
+    1. Sistema redireciona para serviço escolhido 
+    2. Sistema motra catalago do serviço selecionado junto com sua descrição
 
-#### Atores
+[A2]Usuario seleciona compra&&agendamento
+    1. Sistema redireciona para o produto ou abre um formulario de agendamento 
 
-1. Cras tempor
+# UC3 – Agendar Atendimento
 
-#### Fluxo Principal
+Objetivo: Permitir que o cliente agende banho, tosa ou consultas.
+Atores: Cliente
 
-1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-2. Mauris varius massa ac fermentum scelerisque.
-3. Morbi in tortor dignissim, bibendum tellus et, varius odio.
-4. Mauris egestas leo a suscipit feugiat.
+Pré-condições: Cliente ter um login 
 
-#### Fluxo Alternativo A
+## Fluxo Principal:
 
-1. Nulla elementum diam eu elementum rutrum.
-2. Aenean scelerisque est at nunc ornare, ac condimentum justo sollicitudin.
-3. Quisque eget risus ut est lacinia sollicitudin ac non diam.
-4. Quisque ac nulla convallis, lobortis nibh ac, tristique enim.
-5. Nulla ultricies metus nec risus mollis, interdum ultrices justo malesuada.
+O sistema mostra um formulário contendo:
 
-### CDU 03
+1.Nome
+2.Telefone
+3.Tipo de pet
+4.Serviço(Banho, tosa e Consulta podendo fazer multi seleções)
+5.Data e hora
 
-Duis nec orci quis velit faucibus hendrerit tempus vel libero.
+com um botão escrito "Confirmar"
 
-#### Atores
+usuario clica no botão[A1]
 
-1. Donec a lorem
+Sistema confirma agendamento por e-mail ou WhatsApp.
 
-#### Fluxo Principal
+## Fluxo Alternativo:
 
-1. Praesent interdum lectus sit amet augue tincidunt imperdiet.
-2. Duis ac dolor vel nisi imperdiet vehicula et non sem.
-3. Nunc imperdiet tortor consequat, lobortis purus non, interdum risus.
+[A1]Usuario clica no botão:
+    1. Sistema redireciona usuario para o Index
 
-#### Fluxo Alternativo A
+# UC4 – Fazer Compras Online
 
-1. Aliquam efficitur arcu ac fermentum egestas.
-2. Pellentesque ac diam vitae erat bibendum hendrerit.
-3. Mauris sed purus sit amet lectus efficitur placerat et eu diam.
-4. Aenean ullamcorper tellus quis nibh porttitor congue.
-5. Phasellus laoreet erat eget condimentum dictum.
+Objetivo: Permitir que o cliente compre produtos e realize pagamento.
+Atores: Cliente
+Pré-condição: estar logado
+
+## Fluxo Principal:
+
+Sistema mostra o carrinho de compras com itens que foram selecionados
+
+Sistema mostra as opções de pagamento: pix, cartão de crédito, cartão de débito, boleto
+
+Usuario seleciona o tipo de pagamento[A1][A2][A3][A4]
+
+Sistema mostra um campo para por CEP, bairro, número de casa e referência
+
+## Fluxo Alternativo:
+
+[A1]Usuario seleciona pagamento por Pix:
+    1.Sistema gera um QR code para pagamento com expiração de 30 minutos
+    2.Sistema gera um codigo aleatorio para pagamento com expiração de 30 minutos
+    3.Sistema confere se pagamento foi feito
+
+[A2]Usuario seleciona pagamento por cartão de crédito:
+    1. Sistema mostra um formulario com informações do cartão
+    2. Sistema confere se as informações adicionadas estão corretas
+    3. Sistema confere se pagamento foi aprovado
+
+[A3]Usuario seleciona pagamento por cartão de débito:
+    1. Sistema mostra um formulario com informações do cartão
+    2. Sistema confere se as informações adicionadas estão corretas
+    3. Sistema confere se pagamento foi aprovado
+
+[A4]Usuario seleciona pagamento por boleto:
+    1. Sistema mostra boleto para pagar com expiração de 3 a 30 dias
+    2. Sistema confere se pagamento foi feito
+
+# UC5 – Area do Cliente
+
+Objetivo: Permitir que o cliente cadastre/faça login/veja perfil, veja seu histórico de compra e agendamentos e itens desejados
+
+Atores: Cliente
+
+## Fluxo Principal:
+
+Sistema exibe botão para se cadastrar||logar
+
+Usuario clica em botão de cadastro||login[A1][A2]
+
+Sistema exibe seus últimos 3 itens desejados e botão para exibir o restante.
+
+Sistema exibe sua última compra e um botão de redirecionamento para o restante das compras.
+
+Sistema mostra calendário do mês atual com seus agendamentos destacados.
+
+## Fluxo Alternativo:
+
+[A1]Usuario clica em cadastro:
+    1. Sistema abre formulario para cadastro
+    2. Pós cadastro, sistema redireciona para area do cliente
+
+[A2]Usuario clica em login:
+    1. Sistema abre formulario para login
+    2. Sistema verifica se login existe
+    3. Pós cadastro, sistema redireciona para area do cliente
+
+# UC6 – Acessar Blog
+
+Objetivo: Permitir leitura de conteudos sobre cuidados.
+Atores: Cliente, Visitante
+
+# Fluxo Principal:
+
+Sistema mostra postagens com dicas e curiosidades de fontes confiáveis.
+
+Usuario clica em alguma postagem[A1]
+
+## Fluxo Alternativo:
+
+[A1]Usuario clica em postagem:
+    1. Sistema redireciona para postagem selecionada
+
+# UC7 – Gerenciar Produtos
+
+Objetivo: Gerenciar produtos
+Atores: Administrador
+Pré-condição: Login administrativo
+
+## Fluxo Principal:
+
+Sistema deve permitir Administrador cadastrar produtos para o usuario
+
+Sistema deve permitir Administrador excluir produto 
+
+Sistema deve permitir Administrador alterar produto
+
+# UC8 - Gerenciar Blog
+
+Objetivo: Gerenciar Blog
+Atores: Administrador
+Pré-condição: Login Administrativo
+
+## Fluxos Princial:
+
+Sistema deve permitir Administrador adicionar dicas/curiosidades
+
+Sistema deve permitir Administrador excluir dicas/curiosidades
+
+Sistema deve permitir Administrador alterar dicas/curiosidades
+
+# UC9 - Gerenciar Serviços
+
+Objetivo: Gerenciar Serviços
+Atores: Administrador
+Pré-condição: Login Administrativo
+
+## Fluxos Princial:
+
+Sistema deve permitir Administrador adicionar serviços
+
+Sistema deve permitir Administrador excluir serviços
+
+Sistema deve permitir Administrador alterar serviços
