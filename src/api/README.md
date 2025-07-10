@@ -1,3 +1,6 @@
+# OBS:
+\l mostra todos os banco de dados que existem.
+
 # Configurando e rodando o backend
 
 ## Inicialização do Projeto
@@ -81,6 +84,33 @@ Com o banco de dados configurado é possível trabalhar com SQL normalmente, cri
 
 Para navegar no banco de dados sugiro o a extensão PostgreSQL oficial da Microsoft, repare que há várias extensões com mesmo nome de outro fabricantes. Qualquer outra extensão de sua preferência pode ser utilizada.
 
+# NOSSO: 
+
+```sql
+CREATE DATABASE pais_de_pets;
+```
+
+Para conectar ao seu banco de dados basta digitar o comando abaixo (trocando o nome correspondente).
+
+```sql
+\c pais_de_pets;
+```
+
+
+```sql
+CREATE USER paizao WITH ENCRYPTED PASSWORD 'paizao';
+GRANT ALL ON SCHEMA public TO paizao;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO paizao;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO paizao;
+```
+
+```bash
+psql -h localhost  -d pais_de_pets -U paizao -W
+```
+
+```bash
+ psql -h localhost  -d pais_de_pets -U paizao -W -f db/schema_create.sql
+```
 
 ## Endpoints da API
 
