@@ -67,3 +67,5 @@ Não funcionais
 -ser atualizado, tendo informações recentes dos produtos e das notícias
 
 -ser bonito e organizado
+
+a
