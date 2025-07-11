@@ -11,6 +11,7 @@
     <li><a href="/carrinho" class="hover:text-pink-700">Carrinho</a></li>
     <li><a href="/blog" class="hover:text-pink-700">Blog</a></li>
     <li><a href="/perfil" class="hover:text-pink-700">Perfil</a></li>
+    <li><a href="/login" class="hover:text-pink-700">Login/Cadastro</a></li>
     <!-- <li><a href="/admin" class="hover:text-red-700">Admin</a></li> -->
   </ul>
 </nav>

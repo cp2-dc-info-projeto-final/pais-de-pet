@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const pool = require('../db/config');
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
+
 
 /* GET - Buscar todos os usuários */
 router.get('/', async function(req, res, next) {
@@ -46,37 +49,60 @@ router.get('/:id', async function(req, res, next) {
 });
 
 /* POST - Criar novo usuário */
-router.post('/', async function(req, res, next) {
+router.post('/', async function (req, res, next) {
   try {
-    const { login, email } = req.body;
-    
+    const { nome, usuario, email, senha, telefone } = req.body;
+
     // Validação básica
-    if (!login || !email) {
+    if (!nome || !usuario || !email || !senha || !telefone) {
       return res.status(400).json({
         success: false,
-        message: 'Login e email são obrigatórios'
+        message: 'Login, email e senha são obrigatórios'
       });
     }
-    
-    // Verificar se o login já existe
-    const existingUser = await pool.query('SELECT id FROM usuario WHERE login = $1', [login]);
-    if (existingUser.rows.length > 0) {
+
+    // Verificar se o login ou email já existem
+    const UsuarioExistes = await pool.query(
+      'SELECT id FROM usuario WHERE usuario = $1',
+      [usuario]
+    );
+
+    if (UsuarioExistes.rows.length > 0) {
       return res.status(409).json({
         success: false,
-        message: 'Login já está em uso'
+        message: 'Usuario já está em uso'
       });
     }
-    
+
+    const EmailExistes = await pool.query(
+      'SELECT id FROM usuario WHERE email = $1',
+      [email]
+    )
+
+    if (EmailExistes.rows.length > 0) {
+      return res.status(409).json({
+        success: false,
+        message: 'Email já está em uso'
+      });
+    }
+
+    // Criptografar a senha
+    const hashedPassword = await bcrypt.hash(senha, SALT_ROUNDS);
+
+    // Inserir novo usuário
     const result = await pool.query(
-      'INSERT INTO usuario (login, email) VALUES ($1, $2) RETURNING *',
-      [login, email]
+      `INSERT INTO usuario (nome, usuario, email, senha, telefone)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING id, nome, usuario, email, telefone, data_criacao`,
+      [nome, usuario, email, hashedPassword, telefone]
     );
-    
+
     res.status(201).json({
       success: true,
       message: 'Usuário criado com sucesso',
       data: result.rows[0]
     });
+
   } catch (error) {
     console.error('Erro ao criar usuário:', error);
     res.status(500).json({
@@ -106,15 +132,6 @@ router.put('/:id', async function(req, res, next) {
       return res.status(404).json({
         success: false,
         message: 'Usuário não encontrado'
-      });
-    }
-    
-    // Verificar se o login já está em uso por outro usuário
-    const existingUser = await pool.query('SELECT id FROM usuario WHERE login = $1 AND id != $2', [login, id]);
-    if (existingUser.rows.length > 0) {
-      return res.status(409).json({
-        success: false,
-        message: 'Login já está em uso por outro usuário'
       });
     }
     
