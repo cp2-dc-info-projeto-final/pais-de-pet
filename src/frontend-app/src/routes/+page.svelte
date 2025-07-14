@@ -1,38 +1,17 @@
 <script lang="ts">
+  import { Heading } from 'flowbite-svelte';
+  import Menu from '../components/Menu.svelte';
+  import {  P, ImagePlaceholder, Skeleton, TextPlaceholder } from "flowbite-svelte";
 </script>
 
-<section class="text-center py-10 px-4 bg-gradient-to-b from-pink-100 to-white min-h-screen">
-  <h1 class="text-4xl font-bold text-pink-700 mb-6">Bem-vindo à PetShop!</h1>
+<Menu />
 
-  <p class="text-lg text-gray-700 mb-10 max-w-xl mx-auto">
-    Cuidados completos para seu pet com carinho, conforto e segurança.
-  </p>
-
-  <div class="grid md:grid-cols-2 gap-6 mb-12">
-    <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition duration-300">
-      <h2 class="text-2xl font-semibold text-pink-600 mb-2">Agendar Banho e Tosa</h2>
-      <p class="text-gray-600 mb-4">Deixe seu pet sempre limpo e cheiroso com nossos profissionais especializados.</p>
-      <button class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-xl">
-        Agendar Agora
-      </button>
-    </div>
-
-    <div class="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition duration-300">
-      <h2 class="text-2xl font-semibold text-pink-600 mb-2">Agendar Atendimento Médico</h2>
-      <p class="text-gray-600 mb-4">Consultas, vacinas e mais! Garanta a saúde e bem-estar do seu bichinho.</p>
-      <button class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-xl">
-        Agendar Consulta
-      </button> 
-    </div>
-  </div>
-
-  <div class="text-center mt-10">
-    <h3 class="text-xl font-semibold text-gray-700 mb-4">Confira também nossos produtos!</h3>
-    <a
-      href="/compra"
-      class="inline-block bg-pink-400 hover:bg-pink-500 text-white py-2 px-6 rounded-full text-lg"
-    >
-      Ver Ofertas
-    </a>
-  </div>
-</section>
+<div class="text-center p-8 pt-32">
+	<Heading tag="h2" class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6">Home</Heading>
+	<P class="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-4 text-justify">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, urna eu tincidunt consectetur, nisi nisl aliquam nunc, eget aliquam massa nisl quis neque. Mauris consequat, sapien et dictum cursus, urna erat laoreet enim, nec gravida urna erat at sapien. Etiam nec dolor vitae odio hendrerit venenatis. Proin nec turpis nec sem tempus dictum. Vivamus tincidunt, nisi nec facilisis cursus, enim erat dictum neque, at dignissim enim urna at velit. Integer non turpis id mi tristique cursus. Nullam in sem vitae massa dictum dictum.
+	</P>
+	<Skeleton class="mt-16 mb-8" />
+	<ImagePlaceholder class="my-8" />
+	<TextPlaceholder class="my-8" />
+</div>
