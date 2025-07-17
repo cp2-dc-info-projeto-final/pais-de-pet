@@ -9,8 +9,12 @@
 
   type User = {
     id: number;
-    login: string;
+    usuario: string;
     email: string;
+    nome: string;
+    senha: string;
+    confirm_senha: string;
+    telefone: string;
   };
 
   let users: User[] = []; // lista de usuários
@@ -89,7 +93,7 @@
         {#each users as user}
           <TableBodyRow>
             <TableBodyCell>{user.id}</TableBodyCell>
-            <TableBodyCell>{user.login}</TableBodyCell>
+            <TableBodyCell>{user.usuario}</TableBodyCell>
             <TableBodyCell>{user.email}</TableBodyCell>
             <TableBodyCell>
               <!-- Botão editar -->
@@ -123,7 +127,7 @@
         <Card class="max-w-sm w-full p-0 overflow-hidden shadow-lg border border-gray-200">
           <div class="px-4 pt-4 pb-2 bg-gray-100 text-left flex items-center justify-between">
             <div>
-              <div class="text-lg font-semibold text-gray-800 text-left">{user.login}</div>
+              <div class="text-lg font-semibold text-gray-800 text-left">{user.usuario}</div>
               <div class="text-xs text-gray-400 text-left">ID: {user.id}</div>
             </div>
             <div class="flex gap-2">
