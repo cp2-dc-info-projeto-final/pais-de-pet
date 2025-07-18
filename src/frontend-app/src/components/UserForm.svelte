@@ -27,7 +27,7 @@
   if (id !== null) {
     loading = true;
     try {
-      const res = await api.get(`/users/${id}`);
+      const res = await api.get(`/novo/${id}`);
       const data = res.data.data;
       user = { ...data, senha: '', confirm_senha: '' }; // senha não vem do backend
     } catch (e) {
@@ -59,11 +59,11 @@
     }
 
     if (id === null) {
-      await api.post('/users', payload);
+      await api.post('/novo', payload);
     } else {
-      await api.put(`/users/${id}`, payload);
+      await api.put(`/novo/${id}`, payload);
     }
-    goto('/users');
+    goto('/novo');
   } catch (e) {
       error = 'Erro ao salvar usuário.';
     } finally {
@@ -73,7 +73,7 @@
 
   function handleCancel() {
     console.log('Cancelar');
-    goto('/users');
+    goto('/novo');
   }
 </script>
 

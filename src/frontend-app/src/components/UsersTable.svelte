@@ -85,7 +85,7 @@
     <Table class="w-full max-w-3xl mx-auto my-8 shadow-lg border border-gray-200 rounded-lg">
       <TableHead>
         <TableHeadCell>ID</TableHeadCell>
-        <TableHeadCell>Login</TableHeadCell>
+        <TableHeadCell>Usuario</TableHeadCell>
         <TableHeadCell>Email</TableHeadCell>
         <TableHeadCell></TableHeadCell> <!-- coluna para editar/remover -->
       </TableHead>
@@ -100,7 +100,7 @@
               <button
                 class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent"
                 title="Editar"
-                on:click={() => goto(`/users/edit/${user.id}`)}
+                on:click={() => goto(`/adm_menu/edit/${user.id}`)}
               >
                 <UserEditOutline class="w-5 h-5 text-primary-500" />
               </button>
@@ -135,7 +135,7 @@
               <button
                 class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent"
                 title="Editar"
-                on:click={() => goto(`/users/edit/${user.id}`)}
+                on:click={() => goto(`/adm_menu/edit/${user.id}`)}
               >
                 <UserEditOutline class="w-5 h-5 text-primary-500" />
               </button>
