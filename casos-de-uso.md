@@ -119,36 +119,57 @@ Sistema mostra um campo para por CEP, bairro, número de casa e referência
     1. Sistema mostra boleto para pagar com expiração de 3 a 30 dias
     2. Sistema confere se pagamento foi feito
 
-# UC5 – Area do Cliente
+# UC5 – Fazer Registro
 
-Objetivo: Permitir que o cliente cadastre/faça login/veja perfil, veja seu histórico de compra e agendamentos e itens desejados
+Objetivo: Permitir que o cliente se cadastre
 
 Atores: Cliente
 
 ## Fluxo Principal:
 
-Sistema exibe botão para se cadastrar||logar
+Sistema exibe formulario para cadastro contendo informações de:
+    1. Nome
+    2. CPF
+    3. E-mail
+    4. Senha
+    5. Confirmação de Senha
+    6. Celular
+    
+    Exibe botão "Confirmar" e botão "Voltar"
 
-Usuario clica em botão de cadastro||login[A1][A2]
+Usuario clica em "cadastrar"[A1]
 
-Sistema exibe seus últimos 3 itens desejados e botão para exibir o restante.
-
-Sistema exibe sua última compra e um botão de redirecionamento para o restante das compras.
-
-Sistema mostra calendário do mês atual com seus agendamentos destacados.
+Sistema redireciona para a Index
 
 ## Fluxo Alternativo:
 
-[A1]Usuario clica em cadastro:
-    1. Sistema abre formulario para cadastro
-    2. Pós cadastro, sistema redireciona para area do cliente
+[A1]Sistema verifica campo:
+    1. Sistema notifica usuario que há campo vazio
 
-[A2]Usuario clica em login:
-    1. Sistema abre formulario para login
-    2. Sistema verifica se login existe
-    3. Pós cadastro, sistema redireciona para area do cliente
+# UC6 – Fazer Login
 
-# UC6 – Acessar Blog
+Objetivo: Permitir que o cliente se logue na conta
+
+Atores: Cliente
+
+## Fluxo Principal:
+
+Sistema exibe formulario para cadastro contendo informações de:
+    1. E-mail
+    2. Senha
+    
+    Exibe botão "Confirmar" e botão "Voltar"
+
+Usuario clica em "logar"[A1]
+
+Sistema redireciona para a Index
+
+## Fluxo Alternativo:
+
+[A1]Sistema verifica campo:
+    1. Sistema notifica usuario que a senha ou e-mail estão incorretos
+
+# UC7 – Acessar Blog
 
 Objetivo: Permitir leitura de conteudos sobre cuidados.
 Atores: Cliente, Visitante
