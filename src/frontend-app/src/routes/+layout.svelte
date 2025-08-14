@@ -6,7 +6,7 @@
 
 <main>
   <Menu />
-  <div>
+  <div class="pt-20">
     {@render children()}
   </div>
 </main>

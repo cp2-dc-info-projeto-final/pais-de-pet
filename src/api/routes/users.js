@@ -183,4 +183,34 @@ router.delete('/:id', async function(req, res, next) {
   }
 });
 
+/* POST - Login */
+router.post('/login', async (req, res) => {
+  try {
+    const { email, senha } = req.body;
+
+    if (!email || !senha) {
+      return res.status(400).json({ success: false, message: 'Email e senha são obrigatórios' });
+    }
+
+    const result = await pool.query('SELECT * FROM usuario WHERE email = $1', [email]);
+    if (result.rows.length === 0) {
+      return res.status(401).json({ success: false, message: 'Email ou senha incorretos' });
+    }
+
+    const user = result.rows[0];
+    const senhaValida = await bcrypt.compare(senha, user.senha);
+    if (!senhaValida) {
+      return res.status(401).json({ success: false, message: 'Email ou senha incorretos' });
+    }
+
+    // Retorna dados do usuário sem a senha
+    const { senha: _, ...userData } = user;
+    res.json({ success: true, data: userData });
+
+  } catch (error) {
+    console.error('Erro no login:', error);
+    res.status(500).json({ success: false, message: 'Erro interno do servidor' });
+  }
+});
+
 module.exports = router;
