@@ -61,41 +61,42 @@
     goto('/adm_menu');
   }
 </script>
-
-<Card class="max-w-md mx-auto mt-10 p-0 overflow-hidden shadow-lg border border-gray-200 rounded-lg">
-  <form class="flex flex-col gap-6 p-6" on:submit|preventDefault={handleSubmit}>
-    <Heading tag="h3" class="mb-2 text-center">Editar Usuário</Heading>
-    {#if error}
-      <div class="text-red-500 text-center">{error}</div>
-    {/if}
-    <div>
-      <Label>Email</Label>
-      <p class="p-2 rounded border bg-gray-100">{user.email}</p>
-    </div>
-    <div>
-      <Label for="usuario">Usuário</Label>
-      <Input id="usuario" bind:value={user.usuario} placeholder="Digite o login" required class="mt-1" />
-    </div>
-    <div>
-      <Label for="nome">Nome</Label>
-      <Input id="nome" bind:value={user.nome} placeholder="Digite seu nome" required class="mt-1"/>
-    </div>
-    <div>
-      <Label for="senha">Senha</Label>
-      <Input id="senha" type="password" bind:value={user.senha} placeholder="Digite sua nova senha" required class="mt-1"/>
-    </div>
-    <div>
-      <Label for="telefone">Telefone</Label>
-      <Input id="telefone" bind:value={user.telefone} placeholder="Digite seu telefone" required class="mt-1"/>
-    </div>
-    <div class="flex gap-4 justify-end mt-4">
-      <Button color="light" type="button" onclick={handleCancel} disabled={loading}>
-        <ArrowLeftOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
-        {id === null ? 'Voltar' : 'Cancelar'}
-      </Button>
-      <Button type="submit" color="primary" disabled={loading}>
-        <FloppyDiskAltOutline class="inline w-5 h-5 mr-2" /> Salvar
-      </Button>
-    </div>
-  </form>
-</Card>
+<div class="pt-20 min-h-screen flex flex-col items-center bg-gradient-to-b from-[#F4E1C1] via-[#E6D3B3] to-[#C49A6C]">
+  <Card class="max-w-md mx-auto mt-10 p-0 overflow-hidden shadow-lg border border-gray-200 rounded-lg">
+    <form class="flex flex-col gap-6 p-6" on:submit|preventDefault={handleSubmit}>
+      <Heading tag="h3" class="mb-2 text-center">Editar Usuário</Heading>
+      {#if error}
+        <div class="text-red-500 text-center">{error}</div>
+      {/if}
+      <div>
+        <Label>Email</Label>
+        <p class="p-2 rounded border bg-gray-100">{user.email}</p>
+      </div>
+      <div>
+        <Label for="usuario">Usuário</Label>
+        <Input id="usuario" bind:value={user.usuario} placeholder="Digite o login" required class="mt-1" />
+      </div>
+      <div>
+        <Label for="nome">Nome</Label>
+        <Input id="nome" bind:value={user.nome} placeholder="Digite seu nome" required class="mt-1"/>
+      </div>
+      <div>
+        <Label for="senha">Senha</Label>
+        <Input id="senha" type="password" bind:value={user.senha} placeholder="Digite sua nova senha" required class="mt-1"/>
+      </div>
+      <div>
+        <Label for="telefone">Telefone</Label>
+        <Input id="telefone" bind:value={user.telefone} placeholder="Digite seu telefone" required class="mt-1"/>
+      </div>
+      <div class="flex gap-4 justify-end mt-4">
+        <Button color="light" type="button" onclick={handleCancel} disabled={loading}>
+          <ArrowLeftOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
+          {id === null ? 'Voltar' : 'Cancelar'}
+        </Button>
+        <Button type="submit" color="primary" disabled={loading}>
+          <FloppyDiskAltOutline class="inline w-5 h-5 mr-2" /> Salvar
+        </Button>
+      </div>
+    </form>
+  </Card>
+</div>

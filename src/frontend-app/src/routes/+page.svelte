@@ -6,7 +6,7 @@
 
 <Menu />
 
-<div class="text-center py-10 bg-gradient-to-b from-amber-800 to-amber-950 min-h-screen">
+<div class="text-center py-10 bg-gradient-to-b from-[#F4E1C1] via-[#E6D3B3] to-[#C49A6C]">
 	
 	<P class="text-lg text-black mb-10 max-w-3xl mx-auto leading-relaxed text-justify">
 		Bem vindo a aplicação Pais de Pets Poderosos! Aqui, você pode gerenciar informações sobre usuários e seus adoráveis pets. Navegue pelo menu para cadastrar novos usuários, visualizar a lista de usuários existentes e saber mais sobre o projeto. Aproveite a experiência e cuide bem dos seus pets!

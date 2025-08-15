@@ -1,11 +1,10 @@
 <script lang="ts">
-  // Tabela de usuários
-  import { Table, TableHead, TableHeadCell, TableBody, TableBodyRow, TableBodyCell, Card } from 'flowbite-svelte'; // UI
-  import ConfirmModal from './ConfirmModal.svelte'; // modal de confirmação
-  import { UserEditOutline, TrashBinOutline } from 'flowbite-svelte-icons'; // ícones
-  import { goto } from '$app/navigation'; // navegação
-  import api from '$lib/api'; // API backend
-  import { onMount } from 'svelte'; // ciclo de vida
+  import { Table, TableHead, TableHeadCell, TableBody, TableBodyRow, TableBodyCell, Card } from 'flowbite-svelte';
+  import ConfirmModal from './ConfirmModal.svelte';
+  import { UserEditOutline, TrashBinOutline, SearchOutline } from 'flowbite-svelte-icons';
+  import { goto } from '$app/navigation';
+  import api from '$lib/api';
+  import { onMount } from 'svelte';
 
   type User = {
     id: number;
@@ -17,33 +16,28 @@
     telefone: string;
   };
 
-  let users: User[] = []; // lista de usuários
+  let users: User[] = [];
+  let searchQuery = ''; // <-- novo
   let loading = true;
   let error = '';
-  let deletingId: number | null = null; // id em deleção
-  let confirmOpen = false; // modal aberto?
-  let confirmTargetId: number | null = null; // id alvo do modal
+  let deletingId: number | null = null;
+  let confirmOpen = false;
+  let confirmTargetId: number | null = null;
 
-  // Abre modal de confirmação
   function openConfirm(id: number) {
     confirmTargetId = id;
     confirmOpen = true;
   }
-  // Fecha modal
   function closeConfirm() {
     confirmOpen = false;
     confirmTargetId = null;
   }
-
-  // Confirma remoção
   function handleConfirm() {
     if (confirmTargetId !== null) {
       handleDelete(confirmTargetId);
     }
     closeConfirm();
   }
-
-  // Cancela remoção
   function handleCancel() {
     closeConfirm();
   }
@@ -65,14 +59,35 @@
     try {
       const res = await api.get('/users');
       users = res.data.data;
-      console.log(users);
     } catch (e) {
       error = 'Erro ao carregar usuários';
     } finally {
       loading = false;
     }
   });
+
+  // Função que retorna a lista filtrada
+  $: filteredUsers = users.filter(u => {
+    const q = searchQuery.toLowerCase();
+    return (
+      u.email.toLowerCase().includes(q) ||
+      u.id.toString().includes(q)
+    );
+  });
 </script>
+
+<!-- Campo de pesquisa -->
+<div class="flex items-center gap-2 max-w-3xl mx-auto mt-4">
+  <div class="relative w-full">
+    <input
+      type="text"
+      placeholder="Pesquisar por ID ou Email..."
+      bind:value={searchQuery}
+      class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-500 focus:border-primary-500"
+    />
+    <SearchOutline class="absolute right-3 top-2.5 text-gray-400 w-5 h-5" />
+  </div>
+</div>
 
 {#if loading}
   <div class="my-8 text-center text-gray-500">Carregando usuários...</div>
@@ -81,22 +96,20 @@
 {:else}
   <!-- Tabela para telas médias/grandes -->
   <div class="hidden lg:block">
-    <!-- Tabela de usuários -->
     <Table class="w-full max-w-3xl mx-auto my-8 shadow-lg border border-gray-200 rounded-lg">
       <TableHead>
         <TableHeadCell>ID</TableHeadCell>
         <TableHeadCell>Usuario</TableHeadCell>
         <TableHeadCell>Email</TableHeadCell>
-        <TableHeadCell></TableHeadCell> <!-- coluna para editar/remover -->
+        <TableHeadCell></TableHeadCell>
       </TableHead>
       <TableBody>
-        {#each users as user}
+        {#each filteredUsers as user}
           <TableBodyRow>
             <TableBodyCell>{user.id}</TableBodyCell>
             <TableBodyCell>{user.usuario}</TableBodyCell>
             <TableBodyCell>{user.email}</TableBodyCell>
             <TableBodyCell>
-              <!-- Botão editar -->
               <button
                 class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent"
                 title="Editar"
@@ -104,7 +117,6 @@
               >
                 <UserEditOutline class="w-5 h-5 text-primary-500" />
               </button>
-              <!-- Botão remover -->
               <button
                 title="Remover"
                 class="p-2 rounded border border-red-100 hover:border-red-300 transition bg-transparent"
@@ -119,11 +131,11 @@
       </TableBody>
     </Table>
   </div>
+
   <!-- Cards para telas pequenas -->
   <div class="block lg:hidden">
     <div class="flex flex-col items-center gap-4 my-8 max-w-3xl mx-auto md:grid md:grid-cols-2">
-      {#each users as user}
-        <!-- Card de usuário -->
+      {#each filteredUsers as user}
         <Card class="max-w-sm w-full p-0 overflow-hidden shadow-lg border border-gray-200">
           <div class="px-4 pt-4 pb-2 bg-gray-100 text-left flex items-center justify-between">
             <div>
@@ -131,7 +143,6 @@
               <div class="text-xs text-gray-400 text-left">ID: {user.id}</div>
             </div>
             <div class="flex gap-2">
-              <!-- Botão editar -->
               <button
                 class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent"
                 title="Editar"
@@ -139,7 +150,6 @@
               >
                 <UserEditOutline class="w-5 h-5 text-primary-500" />
               </button>
-              <!-- Botão remover -->
               <button
                 title="Remover"
                 class="p-2 rounded border border-red-100 hover:border-red-300 transition bg-transparent"
@@ -152,8 +162,6 @@
           </div>
           <div class="px-4 pb-4 pt-2 flex flex-col gap-2 text-left">
             <div class="flex items-center gap-2 text-left">
-              <!-- Ícone de email -->
-              <svg class="w-4 h-4 text-primary-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 12A4 4 0 1 0 8 12a4 4 0 0 0 8 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14v7m-7-7v7m14-7v7"/></svg>
               <span class="text-gray-700 text-sm">{user.email}</span>
             </div>
           </div>
@@ -163,7 +171,6 @@
   </div>
 {/if}
 
-<!-- Modal de confirmação -->
 <ConfirmModal
   open={confirmOpen}
   message="Tem certeza que deseja remover este usuário?"
