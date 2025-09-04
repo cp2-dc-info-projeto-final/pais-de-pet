@@ -4,10 +4,11 @@ DROP TABLE IF EXISTS pedido;
 DROP TABLE IF EXISTS produto;
 DROP TABLE IF EXISTS categoria;
 DROP TABLE IF EXISTS usuario;
-
+DROP TABLE IF EXISTS pet;
+DROP TABLE IF EXISTS adm;
 -- Tabela de usuários
 CREATE TABLE usuario (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id BIGINT GENERATED ALWAYS AS PRIMARY KEY,
     nome TEXT NOT NULL,
     usuario TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
@@ -16,15 +17,31 @@ CREATE TABLE usuario (
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Tabela do Pet
+CREATE TABLE pet(
+    id INTEGER PRIMARY KEY,
+    nome TEXT NOT NULL,
+    tipo TEXT NOT NULL,
+    id INTEGER NOT NULL,
+    FOREIGN KEY (id) REFERENCES usuario(id)
+    );
+
+-- Tabela do Administrador
+CREATE TABLE adm(
+    id_adm INTEGER PRIMARY KEY,
+    email INTEGER NOT NULL,
+    senha INTEGER NOT NULL
+    );
+
 -- Tabela de categorias de produtos
 CREATE TABLE categoria (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     nome TEXT NOT NULL UNIQUE
 );
 
 -- Tabela de produtos
 CREATE TABLE produto (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     nome TEXT NOT NULL,
     descricao TEXT,
     preco NUMERIC(10, 2) NOT NULL CHECK (preco >= 0),
@@ -34,25 +51,4 @@ CREATE TABLE produto (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-/* Tabela de pedidos
-CREATE TABLE pedido (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    usuario_id BIGINT REFERENCES usuario(id) ON DELETE CASCADE,
-    data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status TEXT DEFAULT 'Pendente' CHECK (status IN ('Pendente', 'Pago', 'Enviado', 'Entregue', 'Cancelado')),
-    total NUMERIC(10, 2) DEFAULT 0 CHECK (total >= 0)
-);
 
--- Tabela de itens do pedido
-CREATE TABLE item_pedido (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    pedido_id BIGINT REFERENCES pedido(id) ON DELETE CASCADE,
-    produto_id BIGINT REFERENCES produto(id) ON DELETE CASCADE,
-    quantidade INT NOT NULL CHECK (quantidade > 0),
-    preco_unitario NUMERIC(10, 2) NOT NULL CHECK (preco_unitario >= 0)
-);
-*/
-
--- INSERT INTO usuario (login, email) VALUES
--- ('hermenegildo', 'hermenegildo@email.com'),
--- ('zoroastra', 'zoroastra@email.com');
