@@ -3,6 +3,18 @@
   import UsersTable from '../../components/UsersTable.svelte';
   import { UserAddOutline  } from 'flowbite-svelte-icons';
   import { goto } from '$app/navigation';
+  import { user } from '$lib/stores/user';
+	import { onMount } from 'svelte';
+
+  function checkUser() {
+    if (!$user) {
+    goto('/login_user');
+    }
+  }
+  
+  onMount(() => {
+    checkUser();
+  });
 </script>
 
 <div class="text-center p-8 pt-32 bg-gradient-to-b from-[#F4E1C1] via-[#E6D3B3] to-[#C49A6C]">

@@ -32,7 +32,8 @@
   
     async function handleSubmit() {
       loading = true;
-      error = '';
+      const res = await api.get(`/users/${localUser.id}`);
+      error = res.data.message;
       try {
         const payload = {
           email: localUser.email,
@@ -51,9 +52,10 @@
           telefone: localUser.telefone
         });
   
-        goto('/perfil_usuario');
+        goto('/perfil_user');
       } catch (e) {
-        error = 'Erro ao atualizar perfil.';
+          const res = await api.get(`/users/${localUser.id}`);
+          error = res.data.message;
       } finally {
         loading = false;
       }

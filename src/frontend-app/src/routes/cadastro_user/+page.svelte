@@ -21,6 +21,7 @@
     let user: User = { id: 0, usuario: '', email: '', nome: '', senha: '', confirm_senha: '', telefone: ''}; // dados do form
     let loading = false;
     let error = '';
+    let errorBox: HTMLDivElement | null = null;
   
     // Carrega usuário se for edição
     onMount(async () => {
@@ -29,18 +30,18 @@
       try {
         const res = await api.get(`/users/${id}`);
         const data = res.data.data;
+        const errorMgs = res.data.message
         user = { ...data, senha: '', confirm_senha: '' }; // senha não vem do backend
       } catch (e) {
-        error = 'Erro ao carregar usuário.';
+        error = 'Erro ao carregar dados do usuário.';
       } finally {
         loading = false;
       }
     } 
   });
   
-  
-    // Submissão do formulário
-    async function handleSubmit() {
+  // Submissão do formulário
+  async function handleSubmit() {
     loading = true;
     error = '';
     try {
@@ -51,44 +52,54 @@
         senha: user.senha,
         telefone: user.telefone
       };
-  
+
+      if (user.senha.length < 8){
+        error = 'A senha deve ter no mínimo 8 caracteres!';
+        loading = false;
+        return;
+      }
       if (user.senha !== user.confirm_senha) {
         error = 'As senhas não coincidem!';
         loading = false;
         return;
       }
-  
+
       if (id === null) {
         await api.post('/users', payload);
       } else {
         await api.put(`/users/${id}`, payload);
       }
       goto('/');
-    } catch (e) {
-        error = 'Erro ao salvar usuário.';
-      } finally {
-        loading = false;
+    } catch (e: any) {
+      // Pega a mensagem do backend
+      if (e.response && e.response.data && e.response.data.message) {
+        error = e.response.data.message;
       }
+      else {
+        error = 'Erro ao salvar dados do usuário.';
+      }
+    } finally {
+      loading = false;
     }
+  }
   
-    function handleCancel() {
-      console.log('Cancelar');
-      goto('/adm_menu');
-    }
-  </script>
+  function handleVoltar() {
+    goto('/adm_menu');
+  }
+</script>
   
 <div class="pt-20 min-h-screen flex flex-col items-center bg-gradient-to-b from-[#F4E1C1] via-[#E6D3B3] to-[#C49A6C]">
   <!-- Card do formulário -->
   <Card class="max-w-md mx-auto mt-10 p-0 overflow-hidden shadow-lg border border-gray-200 rounded-lg bg-gradient-to-b from-[#8d6a2f] via-[#E6D3B3] to-[#804404]">
     <!-- Formulário principal -->
-    <form class="flex flex-col gap-6 p-6" on:submit|preventDefault={handleSubmit}>
+    <form class="flex flex-col gap-6 p-6" on:submit|preventDefault={handleSubmit} novalidate>
       <!-- Título -->
       <Heading tag="h3" class="mb-2 text-center">
         {id === null ? 'Cadastrar Usuário' : 'Editar Usuário'}
       </Heading>
       <!-- Mensagem de erro -->
       {#if error}
-        <div class="text-red-500 text-center">{error}</div>
+        <div class="text-black text-center text-2xl text-shadow-red-700">{error}</div>
       {/if}
       <!-- Campo usuario -->
       <div>
@@ -126,11 +137,13 @@
       </div>
       <!-- Botões de ação -->
       <div class="flex gap-4 justify-end mt-4">
-        <!-- Botão cancelar/voltar -->
-        <Button color="light" type="button" onclick={handleCancel} disabled={loading}>
-          <ArrowLeftOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
-          {id === null ? 'Voltar' : 'Cancelar'}
+        <!-- Botão voltar -->
+        {#if id}
+        <Button color="light" type="button" onclick={handleVoltar} disabled={loading}>Voltar
+        <ArrowLeftOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
         </Button>
+        {/if}
+        
         <!-- Botão salvar -->
         <Button type="submit" color="primary" disabled={loading}>
           <FloppyDiskAltOutline class="inline w-5 h-5 mr-2 align-text-bottom" />

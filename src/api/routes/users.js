@@ -57,7 +57,7 @@ router.post('/', async function (req, res, next) {
     if (!nome || !usuario || !email || !senha || !telefone) {
       return res.status(400).json({
         success: false,
-        message: 'Usuario, email e senha são obrigatórios'
+        message: 'Usuario e email são obrigatórios'
       });
     }
 

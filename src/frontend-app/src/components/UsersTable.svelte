@@ -17,7 +17,7 @@
   };
 
   let users: User[] = [];
-  let searchQuery = ''; // <-- novo
+  let searchQuery = '';
   let loading = true;
   let error = '';
   let deletingId: number | null = null;
@@ -113,7 +113,7 @@
               <button
                 class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent"
                 title="Editar"
-                on:click={() => goto(`/adm_menu/edit/${user.id}`)}
+                on:click={() => goto(`/adm_menu/adm_users/${user.id}`)}
               >
                 <UserEditOutline class="w-5 h-5 text-primary-500" />
               </button>
@@ -146,7 +146,7 @@
               <button
                 class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent"
                 title="Editar"
-                on:click={() => goto(`/adm_menu/edit/${user.id}`)}
+                on:click={() => goto(`/adm_menu/adm_users/${user.id}`)}
               >
                 <UserEditOutline class="w-5 h-5 text-primary-500" />
               </button>

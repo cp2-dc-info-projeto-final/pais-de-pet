@@ -24,7 +24,8 @@
           error = res.data.message || 'Erro ao fazer login.';
         }
       } catch (e) {
-        error = 'Erro ao conectar com o servidor.';
+          const res = await api.get(`/users/login`);
+          error = res.data.message;
       } finally {
         loading = false;
       }
