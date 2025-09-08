@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS pet;
 DROP TABLE IF EXISTS adm;
 -- Tabela de usuários
 CREATE TABLE usuario (
-    id BIGINT GENERATED ALWAYS AS PRIMARY KEY,
+    id BIGINT GENERATED ALWAYS AS IDENTITY, 
     nome TEXT NOT NULL,
     usuario TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
@@ -19,35 +19,26 @@ CREATE TABLE usuario (
 
 -- Tabela do Pet
 CREATE TABLE pet(
-    id INTEGER PRIMARY KEY,
+    id_pet INTEGER PRIMARY KEY,
     nome TEXT NOT NULL,
-    tipo TEXT NOT NULL,
-    id INTEGER NOT NULL,
-    FOREIGN KEY (id) REFERENCES usuario(id)
-    );
-
--- Tabela do Administrador
-CREATE TABLE adm(
-    id_adm INTEGER PRIMARY KEY,
-    email INTEGER NOT NULL,
-    senha INTEGER NOT NULL
+    tipo TEXT NOT NULL
     );
 
 -- Tabela de categorias de produtos
 CREATE TABLE categoria (
-    id INTEGER PRIMARY KEY,
+    id_categoria INTEGER PRIMARY KEY,
     nome TEXT NOT NULL UNIQUE
 );
 
 -- Tabela de produtos
 CREATE TABLE produto (
-    id INTEGER PRIMARY KEY,
+    id_produto INTEGER PRIMARY KEY,
     nome TEXT NOT NULL,
     descricao TEXT,
     preco NUMERIC(10, 2) NOT NULL CHECK (preco >= 0),
     estoque INT DEFAULT 0 CHECK (estoque >= 0),
     imagem_url TEXT,
-    categoria_id BIGINT REFERENCES categoria(id) ON DELETE SET NULL,
+    categoria_id BIGINT REFERENCES categoria(id_categoria) ON DELETE SET NULL,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
