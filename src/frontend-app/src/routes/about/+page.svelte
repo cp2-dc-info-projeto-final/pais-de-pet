@@ -23,8 +23,6 @@
     Lillipup: nós tratamos todos como se fossem um Eevee pronto para evoluir no momento perfeito.
   </P>
 
-  <ImagePlaceholder class="my-8 mx-auto" />
-
   <P class="text-base leading-relaxed text-gray-700 dark:text-gray-300 mb-4 text-justify">
     Nossa equipe é composta por treinadores e cuidadores certificados, alguns com insígnias da Liga Pokémon e outros com 
     medalhas de participação em concursos de beleza de Growlithes. Temos orgulho de dizer que 87% dos nossos funcionários

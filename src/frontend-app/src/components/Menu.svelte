@@ -12,6 +12,7 @@
     <NavHamburger />
     <NavUl>
       {#if !$user}
+      <NavLi href="/produtos" class="navIl">Produtos</NavLi>
       <NavLi href="/cadastro_user" class="navIl">Cadastro</NavLi>
       <NavLi href="/login_user" class="navIl">Login</NavLi>
       <NavLi href="/about" class="navIl">Sobre</NavLi>
@@ -20,6 +21,7 @@
       <NavLi href="/adm_menu" class="navIl">Usuários</NavLi>
       <NavLi href="/about" class="navIl">Sobre</NavLi>
       <NavLi href="/perfil_user" class="navIl">Perfil</NavLi>
+      <NavLi href="/produtos" class="navIl">Produtos</NavLi>
       {/if}
     </NavUl>
   </Navbar>
