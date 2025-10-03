@@ -6,8 +6,18 @@
   import { ArrowLeftOutline, FloppyDiskAltOutline } from 'flowbite-svelte-icons';
   import { page } from '$app/stores';
   import { get } from 'svelte/store';
-
+  import { user } from '$lib/stores/user'
   const { id } = get(page).params;
+
+  function checkUser() {
+    if (!$user) {
+    goto('/login_user');
+    }
+  }
+  
+  onMount(() => {
+    checkUser();
+  });
 
   type User = {
     id: number;
@@ -18,7 +28,7 @@
     telefone: string;
   };
 
-  let user: User = { id: Number(id), usuario: '', email: '', nome: '', senha: '', telefone: '' };
+  let users: User = { id: Number(id), usuario: '', email: '', nome: '', senha: '', telefone: '' };
   let loading = false;
   let error = '';
 
@@ -27,7 +37,7 @@
     try {
       const res = await api.get(`/users/${id}`);
       const data = res.data.data;
-      user = { id: Number(id), usuario: data.usuario, email: data.email, nome: data.nome, senha: '', telefone: data.telefone };
+      users = { id: Number(id), usuario: data.usuario, email: data.email, nome: data.nome, senha: '', telefone: data.telefone };
     } catch (e: any) {
       error = e.response?.data?.message || 'Erro ao carregar usuário.';
     } finally {
@@ -41,15 +51,15 @@
     try {
       // monta payload
       const payload: any = {
-        nome: user.nome,
-        usuario: user.usuario,
-        email: user.email,
-        telefone: user.telefone
+        nome: users.nome,
+        usuario: users.usuario,
+        email: users.email,
+        telefone: users.telefone
       };
 
       // só envia senha se o admin preencheu
-      if (user.senha && user.senha.length > 0) {
-        payload.senha = user.senha;
+      if (users.senha && users.senha.length > 0) {
+        payload.senha = users.senha;
       }
 
       await api.put(`/users/${id}`, payload);
@@ -81,23 +91,23 @@
       {/if}
       <div>
         <Label>Email</Label>
-        <p class="p-2 rounded border bg-gray-100">{user.email}</p>
+        <p class="p-2 rounded border bg-gray-100">{users.email}</p>
       </div>
       <div>
         <Label for="usuario">Usuário</Label>
-        <Input id="usuario" bind:value={user.usuario} placeholder="Digite o login" class="mt-1" />
+        <Input id="usuario" bind:value={users.usuario} placeholder="Digite o login" class="mt-1" />
       </div>
       <div>
         <Label for="nome">Nome</Label>
-        <Input id="nome" bind:value={user.nome} placeholder="Digite seu nome" class="mt-1"/>
+        <Input id="nome" bind:value={users.nome} placeholder="Digite seu nome" class="mt-1"/>
       </div>
       <div>
         <Label for="senha">Senha</Label>
-        <Input id="senha" type="password" bind:value={user.senha} placeholder="Digite sua nova senha (opcional)" class="mt-1"/>
+        <Input id="senha" type="password" bind:value={users.senha} placeholder="Digite sua nova senha (opcional)" class="mt-1"/>
       </div>
       <div>
         <Label for="telefone">Telefone</Label>
-        <Input id="telefone" bind:value={user.telefone} placeholder="Digite seu telefone" class="mt-1"/>
+        <Input id="telefone" bind:value={users.telefone} placeholder="Digite seu telefone" class="mt-1"/>
       </div>
       <div class="flex gap-4 justify-end mt-4">
         <Button color="light" type="button" onclick={handleCancel} disabled={loading}>
