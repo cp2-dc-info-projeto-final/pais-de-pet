@@ -1,27 +1,27 @@
 import { writable } from 'svelte/store';
 
 // Estado inicial: tenta carregar do localStorage
-let savedProducts = [];
+let savedProduto = [];
 if (typeof localStorage !== 'undefined') {
-    const stored = localStorage.getItem('products');
+    const stored = localStorage.getItem('produto');
     if (stored) {
         try {
-            savedProducts = JSON.parse(stored);
+            savedProduto = JSON.parse(stored);
         } catch {
-            savedProducts = [];
+            savedProduto = [];
         }
     }
 }
 
-export const products = writable(savedProducts);
+export const produto = writable(savedProduto);
 
 // Sempre que mudar, salva no localStorage
-products.subscribe((value) => {
+produto.subscribe((value) => {
     if (typeof localStorage !== 'undefined') {
         if (value && value.length > 0) {
-            localStorage.setItem('products', JSON.stringify(value));
+            localStorage.setItem('produto', JSON.stringify(value));
         } else {
-            localStorage.removeItem('products');
+            localStorage.removeItem('produto');
         }
     }
 });

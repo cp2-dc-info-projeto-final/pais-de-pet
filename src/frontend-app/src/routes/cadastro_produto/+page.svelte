@@ -5,7 +5,7 @@
     import api from '$lib/api'; // API backend
     import { goto } from '$app/navigation'; // navegação
     import { ArrowLeftOutline, FloppyDiskAltOutline } from 'flowbite-svelte-icons'; // ícones
-    import { products } from '$lib/stores/produto' // produtos
+    import { produto } from '$lib/stores/produto' // produtos
     import { user } from '$lib/stores/user'
   
     export let id: number | null = null; // id do usuário
@@ -13,13 +13,13 @@
     type Produto = {
       id: number;
 
-      quantidade: string;
+      estoque: string;
       nome: string;
       preco: string;
-
+      descricao: string;
     };
   
-    let produto: Produto = { id: 0, quantidade: '', nome: '', preco: ''}; // dados do form
+    let produtos: Produto = { id: 0, estoque: '', descricao: '' ,nome: '', preco: ''}; // dados do form
     let loading = false;
     let error = '';
     let errorBox: HTMLDivElement | null = null;
@@ -40,17 +40,16 @@
     error = '';
     try {
       const payload = {
-        nome: user.nome,
-        usuario: user.usuario,
-        quantidade: user.quantidade,
-        preco: user.preco,
-        telefone: user.telefone
+        nome: produtos.nome,
+        descricao: produtos.descricao,
+        estoque: produtos.estoque,
+        preco: produtos.preco
       };
 
       if (id === null) {
-        await api.post('/users', payload);
+        await api.post('/produto', payload);
       } else {
-        await api.put(`/users/${id}`, payload);
+        await api.put(`/produto/${id}`, payload);
       }
       goto('/');
     } catch (e: any) {
@@ -59,7 +58,7 @@
         error = e.response.data.message;
       }
       else {
-        error = 'Erro ao salvar dados do usuário.';
+        error = 'Erro ao salvar dados do produto.';
       }
     } finally {
       loading = false;
@@ -67,7 +66,7 @@
   }
   
   function handleVoltar() {
-    goto('/adm_menu');
+    goto('/adm_produtos');
   }
 </script>
   
@@ -85,19 +84,25 @@
         <div class="text-black text-center text-2xl text-shadow-red-700">{error}</div>
       {/if}
       <div>
+        <!-- Campo Nome -->
         <Label for="nome">Nome</Label>
-        <Input id="nome" type="string" bind:value={user.nome} placeholder="Digite seu nome" required class="mt-1"/>
+        <Input id="nome" type="string" bind:value={produtos.nome} placeholder="Digite o nome do produto" required class="mt-1"/>
       </div>
-      <!-- Campo senha -->
+      <!-- Campo preço -->
       <div>
         <Label for="preco">Preço</Label>
-        <Input id="preco" type="password" bind:value={user.preco} placeholder="Digite sua senha" required class="mt-1"/>
+        <Input id="preco" type="string" bind:value={produtos.preco} placeholder="Digite o preço" required class="mt-1"/>
       </div>
-      <!-- Campo confirmar senha -->
+      <!-- Campo descrição -->
+      <div>
+        <Label for="descricao">Descrição</Label>
+        <Input id="descricao" type="string" bind:value={produtos.descricao} placeholder="Digite a descricao do item" required class="mt-1"/>
+      </div>
+      <!-- Campo Quantidade-->
       {#if id === null}
       <div>
         <Label for="quantidade">Quantidade</Label>
-        <Input id="quantidade" type="password" bind:value={user.quantidade} placeholder="Digite sua senha novamente" required class="mt-1"/>
+        <Input id="quantidade" type="number" bind:value={produtos.estoque} placeholder="Digite a quantidade" required class="mt-1"/>
       </div>
       {/if}
       <!-- Botões de ação -->

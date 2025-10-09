@@ -25,13 +25,13 @@ CREATE TABLE pet(
     );
 
 -- Tabela de categorias de produtos
-CREATE TABLE categoria (
+CREATE TABLE categoria(
     id_categoria INTEGER PRIMARY KEY,
     nome TEXT NOT NULL UNIQUE
 );
 
 -- Tabela de produtos
-CREATE TABLE produto (
+CREATE TABLE produto(
     id_produto INTEGER PRIMARY KEY,
     nome TEXT NOT NULL,
     descricao TEXT,
