@@ -32,7 +32,7 @@ CREATE TABLE categoria(
 
 -- Tabela de produtos
 CREATE TABLE produto(
-    id_produto INTEGER PRIMARY KEY,
+    id_produto BIGINT GENERATED ALWAYS AS IDENTITY,
     nome TEXT NOT NULL,
     descricao TEXT,
     preco NUMERIC(10, 2) NOT NULL CHECK (preco >= 0),

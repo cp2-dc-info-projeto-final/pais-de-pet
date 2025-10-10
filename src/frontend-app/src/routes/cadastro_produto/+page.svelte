@@ -8,18 +8,17 @@
     import { produto } from '$lib/stores/produto' // produtos
     import { user } from '$lib/stores/user'
   
-    export let id: number | null = null; // id do usuário
+    export let id_produto: number | null = null; // id do produto
   
     type Produto = {
-      id: number;
-
+      id_produto: number;
       estoque: string;
       nome: string;
       preco: string;
       descricao: string;
     };
   
-    let produtos: Produto = { id: 0, estoque: '', descricao: '' ,nome: '', preco: ''}; // dados do form
+    let produtos: Produto = { id_produto: 0, estoque: '', descricao: '' ,nome: '', preco: ''}; // dados do form
     let loading = false;
     let error = '';
     let errorBox: HTMLDivElement | null = null;
@@ -46,10 +45,10 @@
         preco: produtos.preco
       };
 
-      if (id === null) {
+      if (id_produto === null) {
         await api.post('/produto', payload);
       } else {
-        await api.put(`/produto/${id}`, payload);
+        await api.put(`/produto/${id_produto}`, payload);
       }
       goto('/');
     } catch (e: any) {
@@ -77,7 +76,7 @@
     <form class="flex flex-col gap-6 p-6" on:submit|preventDefault={handleSubmit} novalidate>
       <!-- Título -->
       <Heading tag="h3" class="mb-2 text-center">
-        {id === null ? 'Cadastrar Produto' : 'Editar Produto'}
+        {id_produto === null ? 'Cadastrar Produto' : 'Editar Produto'}
       </Heading>
       <!-- Mensagem de erro -->
       {#if error}
@@ -99,7 +98,7 @@
         <Input id="descricao" type="string" bind:value={produtos.descricao} placeholder="Digite a descricao do item" required class="mt-1"/>
       </div>
       <!-- Campo Quantidade-->
-      {#if id === null}
+      {#if id_produto === null}
       <div>
         <Label for="quantidade">Quantidade</Label>
         <Input id="quantidade" type="number" bind:value={produtos.estoque} placeholder="Digite a quantidade" required class="mt-1"/>
@@ -108,7 +107,7 @@
       <!-- Botões de ação -->
       <div class="flex gap-4 justify-end mt-4">
         <!-- Botão voltar -->
-        {#if id}
+        {#if id_produto}
         <Button color="light" type="button" onclick={handleVoltar} disabled={loading}>Voltar
         <ArrowLeftOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
         </Button>
@@ -117,7 +116,7 @@
         <!-- Botão salvar -->
         <Button type="submit" color="primary" disabled={loading}>
           <FloppyDiskAltOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
-          {id === null ? 'Cadastrar' : 'Salvar'}
+          {id_produto === null ? 'Cadastrar' : 'Salvar'}
         </Button>
       </div>
     </form>

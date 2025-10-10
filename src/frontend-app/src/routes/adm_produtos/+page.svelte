@@ -3,9 +3,9 @@
   import UsersTable from '../../components/UsersTable.svelte';
   import { UserAddOutline  } from 'flowbite-svelte-icons';
   import { goto } from '$app/navigation';
-  import { products } from '$lib/stores/produto';
   import { user } from '$lib/stores/user';
 	import { onMount } from 'svelte';
+	import ProdutosTable from '../../components/ProdutosTable.svelte';
 
   function checkUser() {
     if (!$user) {
@@ -26,5 +26,5 @@
       Adicionar
     </button>
   </div>
-  <UsersTable />
+  <ProdutosTable />
 </div>

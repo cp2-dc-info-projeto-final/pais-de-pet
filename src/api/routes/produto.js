@@ -22,9 +22,12 @@ router.get('/', async function(req, res, next) {
 });
 
 /* GET parametrizado - Buscar produto por ID */
-router.get('/:id', async function(req, res, next) {
+router.get('/:id_produto', async function(req, res, next) {
   try {
     const { id_produto } = req.params;
+
+    console.log('ID do produto recebido no backend:', id_produto);
+
     const result = await pool.query('SELECT * FROM produto WHERE id_produto = $1', [id_produto]);
     
     if (result.rows.length === 0) {
@@ -62,8 +65,8 @@ router.post('/', async function (req, res, next) {
 
     // Verificar se o login ou email já existem
     const ProdutosExistes = await pool.query(
-      'SELECT id_produto FROM produto WHERE produto = $1',
-      [produto]
+      'SELECT id_produto FROM produto WHERE nome = $1',
+      [nome]
     );
 
     if (ProdutosExistes.rows.length > 0) {
@@ -77,7 +80,7 @@ router.post('/', async function (req, res, next) {
     const result = await pool.query(
       `INSERT INTO produto (nome, descricao, preco, estoque)
        VALUES ($1, $2, $3, $4)
-       RETURNING id, nome, preco, estoque, categoria_id, data_cadastro`,
+       RETURNING id_produto, nome, descricao, preco, estoque, imagem_url, categoria_id, data_cadastro`,
       [nome, descricao, preco, estoque]
     );
 
@@ -97,13 +100,13 @@ router.post('/', async function (req, res, next) {
 });
 
 /* PUT - Atualizar produto */
-router.put('/:id', async function(req, res, next) {
+router.put('/:id_produto', async function(req, res, next) {
   try {
     const { id_produto } = req.params;
-    const { nome, descricao, preco, estoque} = req.body;
+    const { nome, preco, estoque} = req.body;
     
     // Validação básica
-    if (!nome || !descricao || !preco || !estoque) {
+    if (!nome || !preco || !estoque) {
       return res.status(400).json({
         success: false,
         message: 'Nome, preco, e categoria são obrigatórios'
@@ -139,9 +142,9 @@ router.put('/:id', async function(req, res, next) {
 });
 
 /* DELETE - Remover produto */
-router.delete('/:id', async function(req, res, next) {
+router.delete('/:id_produto', async function(req, res, next) {
   try {
-    const { id } = req.params;
+    const { id_produto } = req.params;
     
     // Verificar se o produto existe
     const ProdutoExists = await pool.query('SELECT id_produto FROM produto WHERE id_produto = $1', [id_produto]);
@@ -166,36 +169,5 @@ router.delete('/:id', async function(req, res, next) {
     });
   }
 });
-
-
-/* POST - Login */
-router.post('/adicionar', async (req, res) => {
-  try {
-    const { nome, preco, estoque } = req.body;
-
-    if (!nome || !preco || !estoque) {
-      return res.status(400).json({ success: false, message: 'Nome, preco e estoque são obrigatórios' });
-    }
-
-    const result = await pool.query('SELECT * FROM produto WHERE nome = $1', [nome]);
-    if (result.rows.length === 0) {
-      return res.status(401).json({ success: false, message: 'Nome, preco e estoque incorretos' });
-    }
-
-    const produto = result.rows[0];
-    if (result.rows.length === 0) {
-      return res.status(401).json({ success: false, message: 'Email ou senha incorretos' });
-    }
-
-    // Retorna dados do usuário sem a senha
-    const {...produtoData } = produto;
-    res.json({ success: true, data: produtoData });
-
-  } catch (error) {
-    console.error('Erro no login:', error);
-    res.status(500).json({ success: false, message: 'Erro interno do servidor' });
-  }
-});
-
 
 module.exports = router;
