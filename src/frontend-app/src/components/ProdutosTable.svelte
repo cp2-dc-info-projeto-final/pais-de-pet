@@ -12,7 +12,7 @@
       descricao: string;
       preco: string;
       estoque: string;
-      categoria: string;
+      categoria_id: string;
     };
   
     let produtos: Produto[] = [];
@@ -99,7 +99,10 @@
         <TableHead>
           <TableHeadCell>ID</TableHeadCell>
           <TableHeadCell>Nome</TableHeadCell>
-          <TableHeadCell>descrição</TableHeadCell>
+          <TableHeadCell>Descrição</TableHeadCell>
+          <TableHeadCell>Preço</TableHeadCell>
+          <TableHeadCell>Estoque</TableHeadCell>
+          <TableHeadCell>Categoria</TableHeadCell>
           <TableHeadCell></TableHeadCell>
         </TableHead>
         <TableBody>
@@ -108,6 +111,9 @@
               <TableBodyCell>{produto.id_produto}</TableBodyCell>
               <TableBodyCell>{produto.nome}</TableBodyCell>
               <TableBodyCell>{produto.descricao}</TableBodyCell>
+              <TableBodyCell>{produto.preco}</TableBodyCell>
+              <TableBodyCell>{produto.estoque}</TableBodyCell>
+              <TableBodyCell>{produto.categoria_id}</TableBodyCell>
               <TableBodyCell>
                 <button
                   class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent"

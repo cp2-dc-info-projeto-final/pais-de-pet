@@ -42,4 +42,7 @@ CREATE TABLE produto(
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO categoria(id_categoria, nome) VALUES
+
+('1', 'novo')
 

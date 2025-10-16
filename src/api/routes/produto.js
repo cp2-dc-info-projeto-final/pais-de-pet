@@ -63,6 +63,26 @@ router.post('/', async function (req, res, next) {
       });
     }
 
+  /* GET - Listar categorias (para debug) */
+router.get('/debug/categorias', async function(req, res, next) {
+  try {
+    const result = await pool.query('SELECT * FROM categoria');
+    res.json({
+      success: true,
+      data: result.rows
+    });
+  } catch (error) {
+    console.error('Erro ao buscar categorias:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
+
+
+
     // Verificar se o login ou email já existem
     const ProdutosExistes = await pool.query(
       'SELECT id_produto FROM produto WHERE nome = $1',
@@ -102,29 +122,25 @@ router.post('/', async function (req, res, next) {
 /* PUT - Atualizar produto */
 router.put('/:id_produto', async function(req, res, next) {
   try {
+    console.log('cheguei');
     const { id_produto } = req.params;
-    const { nome, preco, estoque} = req.body;
+    const { nome, preco, estoque, descricao, categoria_id} = req.body;
     
     // Validação básica
-    if (!nome || !preco || !estoque) {
+    if (!nome || !descricao || !preco || !estoque || !categoria_id) {
       return res.status(400).json({
         success: false,
-        message: 'Nome, preco, e categoria são obrigatórios'
+        message: 'Nome, preco, estoque ,descricao e categoria são obrigatórios'
       });
     }
     
     // Verificar se o produto é existe
-    const ProdutoExists = await pool.query('SELECT id_produto FROM produto WHERE id_produto = $1', [id_produto]);
-    if (ProdutoExists.rows.length === 0) {
-      return res.status(404).json({
-        success: false,
-        message: 'Produto não encontrado'
-      });
-    }
-    
     const result = await pool.query(
-      'UPDATE produto SET nome = $1, id_produto = $2 RETURNING *',
-      [nome, id_produto]
+      `UPDATE produto 
+       SET nome = $1, descricao = $2, preco = $3, estoque = $4, categoria_id = $5
+       WHERE id_produto = $6 
+       RETURNING *`,
+      [nome, descricao, preco, estoque, categoria_id || null, id_produto]
     );
     
     res.json({
