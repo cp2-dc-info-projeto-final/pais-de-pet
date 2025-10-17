@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Table, TableHead, TableHeadCell, TableBody, TableBodyRow, TableBodyCell, Card } from 'flowbite-svelte';
     import ConfirmModal from './ConfirmModal.svelte';
-    import { UserEditOutline, TrashBinOutline, SearchOutline } from 'flowbite-svelte-icons';
+    import { UserEditOutline, TrashBinOutline, SearchOutline, ShoppingBagOutline } from 'flowbite-svelte-icons';
     import { goto } from '$app/navigation';
     import api from '$lib/api';
     import { onMount } from 'svelte';
@@ -23,6 +23,13 @@
     let confirmOpen = false;
     let confirmTargetId: number | null = null;
   
+    function adicionarAoCarrinho(produto: Produto) {
+      let carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
+      carrinho.push(produto);
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      alert(`${produto.nome} adicionado ao carrinho!`);
+    }
+
     function openConfirm(id_produto: number) {
       confirmTargetId = id_produto;
       confirmOpen = true;
@@ -130,6 +137,13 @@
                 >
                   <TrashBinOutline class="w-5 h-5 text-red-400" />
                 </button>
+                <button
+                  title="Adicionar ao Carrinho"
+                  class="p-2 rounded border border-green-200 hover:border-green-400 transition bg-transparent"
+                  on:click={() => adicionarAoCarrinho(produto)}
+                >
+                  <ShoppingBagOutline class="w-5 h-5 text-green-600" />
+                </button>
               </TableBodyCell>
             </TableBodyRow>
           {/each}
@@ -166,6 +180,13 @@
               </div>
             </div>
             <div class="px-4 pb-4 pt-2 flex flex-col gap-2 text-left">
+              <button
+  class="mt-2 flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow transition w-full justify-center"
+  on:click={() => adicionarAoCarrinho(produto)}
+>
+  <ShoppingBagOutline class="w-5 h-5" />
+  Adicionar ao Carrinho
+</button>
               <div class="flex items-center gap-2 text-left">
                 <span class="text-gray-700 text-sm">{produto.nome}</span>
               </div>

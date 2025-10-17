@@ -21,6 +21,7 @@
       <NavLi href="/about" class="navIl">Sobre</NavLi>
       <NavLi href="/perfil_user" class="navIl">Perfil</NavLi>
       <NavLi href="/adm_produtos" class="navIl">Produtos</NavLi>
+      <NavLi href="/carrinho" class="navIl">Carrinho</NavLi>
       {/if}
     </NavUl>
   </Navbar>

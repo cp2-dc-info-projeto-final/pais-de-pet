@@ -30,7 +30,7 @@
       nome: produto.nome,
       descricao: produto.descricao,
       preco: produto.preco,
-      estoque: produto.preco,
+      estoque: produto.estoque,
       categoria: produto.categoria,
       };
 
