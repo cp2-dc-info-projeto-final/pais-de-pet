@@ -1,4 +1,6 @@
 -- Ordem reversa para evitar erros de chave estrangeira
+DROP TABLE IF EXISTS servicos;
+DROP TABLE IF EXISTS agenda;
 DROP TABLE IF EXISTS item_pedido;
 DROP TABLE IF EXISTS pedido;
 DROP TABLE IF EXISTS produto;
@@ -6,9 +8,10 @@ DROP TABLE IF EXISTS categoria;
 DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS pet;
 DROP TABLE IF EXISTS adm;
+
 -- Tabela de usuários
 CREATE TABLE usuario (
-    id BIGINT GENERATED ALWAYS AS IDENTITY, 
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nome TEXT NOT NULL,
     usuario TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
@@ -16,6 +19,23 @@ CREATE TABLE usuario (
     telefone TEXT,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE servicos(
+    id_servico INTEGER NOT NULL PRIMARY KEY,
+    tipo_servico TEXT NOT NULL,
+    id_usuario BIGINT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+);
+
+CREATE TABLE agenda (
+    id_agenda BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    data DATE NOT NULL,
+    id_servico INTEGER,
+    id_usuario BIGINT,
+    FOREIGN KEY (id_servico) REFERENCES servicos(id_servico),
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+);
+
 
 -- Tabela do Pet
 CREATE TABLE pet(
@@ -44,5 +64,8 @@ CREATE TABLE produto(
 
 INSERT INTO categoria(id_categoria, nome) VALUES
 
-('1', 'novo')
+('1', 'novo');
+
+
+
 

@@ -1,63 +1,140 @@
 <script lang="ts">
-  import { Heading, P, ImagePlaceholder } from "flowbite-svelte";
-  import Menu from '../../components/Menu.svelte';
+  import { onMount } from "svelte";
+
+  const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+
+  let currentDate = new Date();
+  let todayYear = currentDate.getFullYear();
+  let todayMonth = currentDate.getMonth();
+  let todayDay = currentDate.getDate();
+
+  let year = todayYear;
+  let month = todayMonth;
+
+  let daysInMonth: number;
+  let firstDayOfMonth: number;
+  let daysArray: (number | null)[] = [];
+
+  let selectedDay: number | null = null;
+
+  const availableHours = [
+    "09:00", "10:00", "11:00", "12:00",
+    "13:00", "14:00", "15:00", "16:00", "17:00"
+  ];
+
+  function generateCalendar() {
+    daysInMonth = new Date(year, month + 1, 0).getDate();
+    firstDayOfMonth = new Date(year, month, 1).getDay();
+
+    daysArray = [];
+
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      daysArray.push(null);
+    }
+
+    for (let i = 1; i <= daysInMonth; i++) {
+      daysArray.push(i);
+    }
+  }
+
+  onMount(() => {
+    generateCalendar();
+  });
+
+  function nextMonth() {
+    if (month === 11) {
+      month = 0;
+      year++;
+    } else {
+      month++;
+    }
+    selectedDay = null;
+    generateCalendar();
+  }
+
+  function prevMonth() {
+    if (month === 0) {
+      month = 11;
+      year--;
+    } else {
+      month--;
+    }
+    selectedDay = null;
+    generateCalendar();
+  }
+
+  const monthNames = [
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+  ];
+
+  function selectDay(day: number) {
+    if (isPastDay(day)) return;
+    selectedDay = day;
+  }
+
+  function bookAppointment(hour: string) {
+    alert(`Agendado para: ${selectedDay}/${month + 1}/${year} às ${hour}`);
+    selectedDay = null;
+  }
+
+  function isPastDay(day: number): boolean {
+    if (year < todayYear) return true;
+    if (year === todayYear && month < todayMonth) return true;
+    if (year === todayYear && month === todayMonth && day < todayDay) return true;
+    return false;
+  }
 </script>
 
-<Menu />
+<div class="max-w-3xl mx-auto p-6 bg-white rounded shadow">
+  <div class="flex justify-between items-center mb-6">
+    <button on:click={prevMonth} class="px-4 py-2 rounded hover:bg-gray-200 text-lg">&lt;</button>
+    <h2 class="text-2xl font-semibold">{monthNames[month]} {year}</h2>
+    <button on:click={nextMonth} class="px-4 py-2 rounded hover:bg-gray-200 text-lg">&gt;</button>
+  </div>
 
-<div class="text-center p-8 pt-20 min-h-screen flex flex-col items-center bg-gradient-to-b from-[#F4E1C1] via-[#E6D3B3] to-[#C49A6C]">
-  <Heading tag="h1" class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6">
-    Sobre a PetShop
-  </Heading>
+  <div class="grid grid-cols-7 gap-4 text-center font-semibold text-gray-700 text-lg">
+    {#each weekDays as day}
+      <div>{day}</div>
+    {/each}
+  </div>
 
-  <P class="text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-4 text-justify">
-    Bem-vindo à PetShop, o lugar onde seu pet sai mais feliz do que o Ash quando pega um novo Pokémon
-    (exceto quando é um Tauros, porque até hoje a gente não entendeu aquela história). Fundada em 1998, ano em que um
-    jovem treinador tentou evoluir um Eevee usando uma pedra da lua e acabou com um coelho de pelúcia, nossa missão é
-    trazer cuidado, amor e um toque de magia pixelada para cada amigo de quatro patas.
-  </P>
+  <div class="grid grid-cols-7 gap-4 mt-4 text-center text-xl">
+    {#each daysArray as day}
+      {#if day === null}
+        <div class="h-16"></div>
+      {:else}
+        <div
+          on:click={() => selectDay(day)}
+          class={`h-16 flex items-center justify-center rounded cursor-pointer select-none
+            hover:bg-blue-200
+            ${selectedDay === day ? 'bg-blue-500 text-white font-bold' : ''}
+            ${isPastDay(day) ? 'opacity-40 cursor-not-allowed pointer-events-none' : ''}
+          `}
+        >
+          {day}
+        </div>
+      {/if}
+    {/each}
+  </div>
 
-  <P class="text-base leading-relaxed text-gray-600 dark:text-gray-400 text-justify">
-    Aqui, cada banho é mais refrescante que um Surf do Vaporeon, cada tosa mais estilosa que o penteado do Jolteon, e cada
-    carinho mais aconchegante que um abraço do Sylveon. Não importa se o seu bichinho é um Poochyena, um Meowth ou um 
-    Lillipup: nós tratamos todos como se fossem um Eevee pronto para evoluir no momento perfeito.
-  </P>
+  {#if selectedDay !== null}
+    <div class="mt-8 p-6 border rounded bg-gray-50">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-semibold text-xl">Horários disponíveis para {selectedDay}/{month + 1}/{year}</h3>
+        <button on:click={() => (selectedDay = null)} class="text-gray-600 hover:text-gray-900 text-2xl leading-none">&times;</button>
+      </div>
 
-  <P class="text-base leading-relaxed text-gray-700 dark:text-gray-300 mb-4 text-justify">
-    Nossa equipe é composta por treinadores e cuidadores certificados, alguns com insígnias da Liga Pokémon e outros com 
-    medalhas de participação em concursos de beleza de Growlithes. Temos orgulho de dizer que 87% dos nossos funcionários
-    já foram lambidos por um Arcanine e sobreviveram para contar a história.
-  </P>
-
-  <P class="text-base leading-relaxed text-gray-700 dark:text-gray-300 mb-4 text-justify">
-    Também oferecemos um serviço premium chamado "Dia de Evolução", no qual seu pet passa por um tratamento completo: 
-    hidratação digna de Milotic, escovação mágica feita com escovas que brilham (provavelmente efeito placebo), e um 
-    check-up rápido para garantir que não está prestes a virar um Flareon no meio do verão.
-  </P>
-
-  <P class="text-base leading-relaxed text-gray-700 dark:text-gray-300 mb-4 text-justify">
-    Entre nossos clientes famosos estão: um Psyduck que parou de ter dor de cabeça depois da massagem relaxante com aroma
-    de Oran Berry, um Snorlax que só acorda para cortar as unhas e um Eevee que já tentou evoluir em todas as formas possíveis,
-    mas sempre muda de ideia no último segundo (provavelmente por indecisão crônica).
-  </P>
-
-  <P class="text-base leading-relaxed text-gray-700 dark:text-gray-300 mb-4 text-justify">
-    Aqui, acreditamos que cada pet merece seu momento de brilhar, seja em um palco de Contest, em uma batalha contra um
-    ginásio ou simplesmente no sofá assistindo Netflix (com legendas, porque até os Pokémon gostam de entender o enredo).
-  </P>
-
-  <P class="text-base leading-relaxed text-gray-700 dark:text-gray-300 mb-4 text-justify">
-    Nossa loja também vende acessórios exclusivos, como coleiras inspiradas nas evoluções do Eevee, roupinhas de Pikachu,
-    caminhas em formato de Pokébola e biscoitos artesanais feitos à mão (sem Rare Candy, a menos que o cliente insista).
-  </P>
-
-  <P class="text-base leading-relaxed text-gray-700 dark:text-gray-300 mb-4 text-justify">
-    Então, se você quer que seu bichinho seja tratado com o carinho de um Chansey, a paciência de um Slowbro e a energia
-    de um Jolteon depois de tomar um café expresso, venha nos visitar. E lembre-se: um Eevee pode ser qualquer coisa que 
-    quiser… assim como seu pet.
-  </P>
-
-  <P class="text-base leading-relaxed text-gray-700 dark:text-gray-300 mb-4 text-justify">
-    PetShop — onde a evolução começa com um carinho atrás da orelha.
-  </P>
+      <div class="grid grid-cols-4 gap-6">
+        {#each availableHours as hour}
+          <button
+            on:click={() => bookAppointment(hour)}
+            class="py-3 rounded bg-blue-600 text-white hover:bg-blue-700 text-lg"
+          >
+            {hour}
+          </button>
+        {/each}
+      </div>
+    </div>
+  {/if}
 </div>

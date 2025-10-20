@@ -8,7 +8,7 @@ Página Inicial
 
 Página com Serviços
 
--listar os serviços (banho e tosa, consulta, vacina, brinquedos e acessórios)
+-listar os serviços (banho, tosa e produtos)
 
 -descrever os serviços 
 
