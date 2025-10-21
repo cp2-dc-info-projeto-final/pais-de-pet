@@ -29,7 +29,7 @@ CREATE TABLE servicos(
 
 CREATE TABLE agenda (
     id_agenda BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    data DATE NOT NULL,
+    data TIMESTAMP NOT NULL,
     id_servico INTEGER,
     id_usuario BIGINT,
     FOREIGN KEY (id_servico) REFERENCES servicos(id_servico),
@@ -66,6 +66,8 @@ INSERT INTO categoria(id_categoria, nome) VALUES
 
 ('1', 'novo');
 
-
+INSERT INTO servicos (id_servico, tipo_servico, id_usuario)
+VALUES (1, 'Banho', 2),
+(2,'Tosa', 1);
 
 
