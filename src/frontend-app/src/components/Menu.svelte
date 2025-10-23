@@ -1,6 +1,7 @@
 <script>
   import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Heading } from "flowbite-svelte";
   import { user } from '$lib/stores/user';
+  import { produto } from '$lib/stores/produto';
 </script>
 
 <div class="relative px-8">
@@ -14,15 +15,19 @@
       {#if !$user}
       <NavLi href="/cadastro_user" class="navIl">Cadastro</NavLi>
       <NavLi href="/login_user" class="navIl">Login</NavLi>
-      <NavLi href="/about" class="navIl">Sobre</NavLi>
+      <NavLi href="/agenda" class="navIl">Agenda</NavLi>
       {/if}
       {#if $user}
-      <NavLi href="/adm_menu" class="navIl">Usuários</NavLi>
-      <NavLi href="/about" class="navIl">Sobre</NavLi>
-      <NavLi href="/perfil_user" class="navIl">Perfil</NavLi>
+      {#if $user.is_admin}
+        <NavLi href="/adm_menu" class="navIl">Usuários</NavLi>
+      {/if}
       <NavLi href="/adm_produtos" class="navIl">Produtos</NavLi>
+      <NavLi href="/agenda" class="navIl">Agenda</NavLi>
+      <NavLi href="/perfil_user" class="navIl">Perfil</NavLi>
       <NavLi href="/carrinho" class="navIl">Carrinho</NavLi>
       {/if}
+
+      
     </NavUl>
   </Navbar>
 </div>

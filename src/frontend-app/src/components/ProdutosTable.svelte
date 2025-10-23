@@ -5,6 +5,7 @@
     import { goto } from '$app/navigation';
     import api from '$lib/api';
     import { onMount } from 'svelte';
+    import { user } from '$lib/stores/user';
   
     type Produto = {
       id_produto: number;
@@ -122,26 +123,30 @@
               <TableBodyCell>{produto.estoque}</TableBodyCell>
               <TableBodyCell>{produto.categoria_id}</TableBodyCell>
               <TableBodyCell>
-                <button
-                  class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent"
-                  title="Editar"
-                  on:click={() => goto(`/adm_produtos/adm_produto/${produto.id_produto}`)}
-                >
-                  <UserEditOutline class="w-5 h-5 text-primary-500" />
-                </button>
-                <button
-                  title="Remover"
-                  class="p-2 rounded border border-red-100 hover:border-red-300 transition bg-transparent"
-                  on:click={() => openConfirm(produto.id_produto)}
-                  disabled={deletingId === produto.id_produto || loading}
-                >
-                  <TrashBinOutline class="w-5 h-5 text-red-400" />
-                </button>
+                {#if $user?.is_admin}
+                  <!-- Botão Editar -->
+                  <button
+                    class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent"
+                    title="Editar"
+                    on:click={() => goto(`/adm_produtos/adm_produto/${produto.id_produto}`)}>
+                    <UserEditOutline class="w-5 h-5 text-primary-500" />
+                  </button>
+              
+                  <!-- Botão Excluir -->
+                  <button
+                    title="Remover"
+                    class="p-2 rounded border border-red-100 hover:border-red-300 transition bg-transparent"
+                    on:click={() => openConfirm(produto.id_produto)}
+                    disabled={deletingId === produto.id_produto || loading}>
+                    <TrashBinOutline class="w-5 h-5 text-red-400" />
+                  </button>
+                {/if}
+              
+                <!-- Botão Carrinho (sempre visível) -->
                 <button
                   title="Adicionar ao Carrinho"
                   class="p-2 rounded border border-green-200 hover:border-green-400 transition bg-transparent"
-                  on:click={() => adicionarAoCarrinho(produto)}
-                >
+                  on:click={() => adicionarAoCarrinho(produto)}>
                   <ShoppingBagOutline class="w-5 h-5 text-green-600" />
                 </button>
               </TableBodyCell>
@@ -162,21 +167,22 @@
                 <div class="text-xs text-gray-400 text-left">ID: {produto.id_produto}</div>
               </div>
               <div class="flex gap-2">
-                <button
-                  class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent"
-                  title="Editar"
-                  on:click={() => goto(`/adm_produtos/adm_produto/${produto.id_produto}`)}
-                >
-                  <UserEditOutline class="w-5 h-5 text-primary-500" />
-                </button>
-                <button
-                  title="Remover"
-                  class="p-2 rounded border border-red-100 hover:border-red-300 transition bg-transparent"
-                  on:click={() => openConfirm(produto.id_produto)}
-                  disabled={deletingId === produto.id_produto || loading}
-                >
-                  <TrashBinOutline class="w-5 h-5 text-red-400" />
-                </button>
+                {#if $user?.is_admin}
+                  <button
+                    class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent"
+                    title="Editar"
+                    on:click={() => goto(`/adm_produtos/adm_produto/${produto.id_produto}`)}>
+                    <UserEditOutline class="w-5 h-5 text-primary-500" />
+                  </button>
+              
+                  <button
+                    title="Remover"
+                    class="p-2 rounded border border-red-100 hover:border-red-300 transition bg-transparent"
+                    on:click={() => openConfirm(produto.id_produto)}
+                    disabled={deletingId === produto.id_produto || loading}>
+                    <TrashBinOutline class="w-5 h-5 text-red-400" />
+                  </button>
+                {/if}
               </div>
             </div>
             <div class="px-4 pb-4 pt-2 flex flex-col gap-2 text-left">

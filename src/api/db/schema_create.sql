@@ -70,4 +70,5 @@ INSERT INTO servicos (id_servico, tipo_servico, id_usuario)
 VALUES (1, 'Banho', 2),
 (2,'Tosa', 1);
 
+SELECT id, nome, is_admin FROM usuario;
 

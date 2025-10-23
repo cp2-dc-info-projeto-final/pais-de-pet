@@ -5,9 +5,21 @@
     import api from '$lib/api'; // API backend
     import { goto } from '$app/navigation'; // navegação
     import { ArrowLeftOutline, FloppyDiskAltOutline } from 'flowbite-svelte-icons'; // ícones
-  
+    import { user } from '$lib/stores/user'
+
     export let id_produto: number 
+
+    function checkUser() {
+    if (!$user) {
+    goto('/login_user');
+    }
+  }
+
+    onMount(() => {
+    checkUser();
+  });
   
+    
     type Produto = {
       id_produto: number;
       nome: string;

@@ -5,7 +5,6 @@
     import api from '$lib/api'; // API backend
     import { goto } from '$app/navigation'; // navegação
     import { ArrowLeftOutline, FloppyDiskAltOutline } from 'flowbite-svelte-icons'; // ícones
-    import { produto } from '$lib/stores/produto' // produtos
     import { user } from '$lib/stores/user'
   
     export let id_produto: number | null = null; // id do produto
@@ -16,9 +15,10 @@
       nome: string;
       preco: string;
       descricao: string;
+      categoria: number;
     };
   
-    let produtos: Produto = { id_produto: 0, estoque: '', descricao: '' ,nome: '', preco: ''}; // dados do form
+    let produto: Produto = { id_produto: 0, nome: '', descricao: '', preco: '', estoque: '', categoria: ''}; // dados do form
     let loading = false;
     let error = '';
     let errorBox: HTMLDivElement | null = null;
@@ -39,10 +39,11 @@
     error = '';
     try {
       const payload = {
-        nome: produtos.nome,
-        descricao: produtos.descricao,
-        estoque: produtos.estoque,
-        preco: produtos.preco
+      nome: produto.nome,
+      descricao: produto.descricao,
+      preco: produto.preco,
+      estoque: produto.estoque,
+      categoria: produto.categoria
       };
 
       if (id_produto === null) {
@@ -71,48 +72,53 @@
   
 <div class="pt-20 min-h-screen flex flex-col items-center bg-gradient-to-b from-[#F4E1C1] via-[#E6D3B3] to-[#C49A6C]">
   <!-- Card do formulário -->
-  <Card class="max-w-md mx-auto mt-10 p-0 overflow-hidden shadow-lg border border-gray-200 rounded-lg bg-gradient-to-b from-[#8d6a2f] via-[#E6D3B3] to-[#804404]">
+  <Card class="max-w-md mx-auto mt-10 p-0 overflow-hidden shadow-lg border border-gray-200 rounded-lg">
     <!-- Formulário principal -->
-    <form class="flex flex-col gap-6 p-6" on:submit|preventDefault={handleSubmit} novalidate>
+    <form class="flex flex-col gap-6 p-6" on:submit|preventDefault={handleSubmit}>
       <!-- Título -->
       <Heading tag="h3" class="mb-2 text-center">
         {id_produto === null ? 'Cadastrar Produto' : 'Editar Produto'}
       </Heading>
       <!-- Mensagem de erro -->
       {#if error}
-        <div class="text-black text-center text-2xl text-shadow-red-700">{error}</div>
+        <div class="text-red-500 text-center">{error}</div>
       {/if}
+      <!-- Campo produto -->
       <div>
-        <!-- Campo Nome -->
-        <Label for="nome">Nome</Label>
-        <Input id="nome" type="string" bind:value={produtos.nome} placeholder="Digite o nome do produto" required class="mt-1"/>
+        <Label for="nome">Produto</Label>
+        <Input id="nome" type='string' bind:value={produto.nome} placeholder="Digite o Nome do Produto" required class="mt-1" />
       </div>
+      <!-- Campo descricao -->
+      {#if id_produto === null}
+      <div>
+        <Label for="descricao">Descrição</Label>
+        <Input id="descricao" type="string" bind:value={produto.descricao} placeholder="Digite a descrição do produto" required class="mt-1" />
+      </div>
+      {/if}
       <!-- Campo preço -->
       <div>
         <Label for="preco">Preço</Label>
-        <Input id="preco" type="string" bind:value={produtos.preco} placeholder="Digite o preço" required class="mt-1"/>
+        <Input id="preco" type="string" bind:value={produto.preco} placeholder="Digite o preço " required class="mt-1"/>
       </div>
-      <!-- Campo descrição -->
+      <!-- Campo estoque -->
       <div>
-        <Label for="descricao">Descrição</Label>
-        <Input id="descricao" type="string" bind:value={produtos.descricao} placeholder="Digite a descricao do item" required class="mt-1"/>
+        <Label for="estoque">Estoque</Label>
+        <Input id="estoque" type="number" bind:value={produto.estoque} placeholder="Digite a quantidade no estoque" required class="mt-1"/>
       </div>
-      <!-- Campo Quantidade-->
+      <!-- Campo categoria -->
       {#if id_produto === null}
       <div>
-        <Label for="quantidade">Quantidade</Label>
-        <Input id="quantidade" type="number" bind:value={produtos.estoque} placeholder="Digite a quantidade" required class="mt-1"/>
+        <Label for="categoria">Categoria</Label>
+        <Input id="categoria" type="string" bind:value={produtos.categoria} placeholder="Digite a categoria do produto" required class="mt-1"/>
       </div>
       {/if}
       <!-- Botões de ação -->
       <div class="flex gap-4 justify-end mt-4">
-        <!-- Botão voltar -->
-        {#if id_produto}
-        <Button color="light" type="button" onclick={handleVoltar} disabled={loading}>Voltar
-        <ArrowLeftOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
+        <!-- Botão cancelar/voltar -->
+        <Button color="light" type="button" onclick={handleVoltar} disabled={loading}>
+          <ArrowLeftOutline class="inline w-5 h-5 mr-2 align-text-bottom" />
+          {id_produto === null ? 'Voltar' : 'Cancelar'}
         </Button>
-        {/if}
-        
         <!-- Botão salvar -->
         <Button type="submit" color="primary" disabled={loading}>
           <FloppyDiskAltOutline class="inline w-5 h-5 mr-2 align-text-bottom" />

@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 const pool = require('../db/config');
 
-
-
 /* GET - Buscar todos os produtos*/
 router.get('/', async function(req, res, next) {
   try {
