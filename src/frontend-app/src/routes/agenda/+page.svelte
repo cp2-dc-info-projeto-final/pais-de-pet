@@ -38,10 +38,30 @@
       diasDoCalendario.push(i);
     }
   }
+let servicos: any[] = [];
+let servicoSelecionado: number | null = null;
 
-  onMount(() => {
-    gerarCalendario();
-  });
+async function carregarServicos() {
+  try {
+    const resposta = await fetch('http://localhost:3000/agenda');
+    if (resposta.ok) {
+      servicos = await resposta.json();
+    } else {
+      console.error("Erro ao carregar serviços");
+    }
+  } catch (err) {
+    console.error("Erro de conexão ao carregar serviços:", err);
+  }
+}
+
+onMount(() => {
+  gerarCalendario();
+  carregarAgendamentos();
+  carregarServicos(); // 👈 carrega os tipos de serviço ao montar a página
+});
+
+
+
 
   function proximoMes() {
     if (mes === 11) {
@@ -81,6 +101,7 @@
     const usuarioLogado = get(user);
     if (!usuarioLogado || !usuarioLogado.id) {
       alert('Você precisa estar logado para agendar.');
+      await carregarAgendamentos();
       return;
     }
 
@@ -98,9 +119,15 @@
       body: JSON.stringify({
         datetime: dataSelecionada.toISOString(),
         userId: idUsuario,
-        serviceId: 1  // Ajuste conforme o serviço real
+        serviceId: servicoSelecionado  // Ajuste conforme o serviço real
       })
     });
+
+    if (servicoSelecionado === null) {
+    alert("Selecione um tipo de serviço antes de agendar.");
+    return;
+    }
+
 
     if (resposta.ok) {
       alert(`Agendamento salvo para ${diaSelecionado}/${mes + 1}/${ano} às ${horario}`);
@@ -110,12 +137,46 @@
     }
   }
 
+  let agendamentos: any[] = [];
+
+  async function carregarAgendamentos() {
+    const usuarioLogado = get(user);
+    if (!usuarioLogado || !usuarioLogado.id) return;
+
+    const resposta = await fetch(`http://localhost:3000/agenda/${usuarioLogado.id}`);
+
+    if (resposta.ok) {
+      agendamentos = await resposta.json();
+    } else {
+      console.error("Erro ao carregar agendamentos");
+    }
+  }
+
+
   function diaNoPassado(dia: number): boolean {
     if (ano < anoHoje) return true;
     if (ano === anoHoje && mes < mesHoje) return true;
     if (ano === anoHoje && mes === mesHoje && dia < diaHoje) return true;
     return false;
   }
+
+  async function cancelarAgendamento(id_agenda: number) {
+  const confirmar = confirm("Tem certeza que deseja cancelar este agendamento?");
+  if (!confirmar) return;
+
+  const resposta = await fetch(`http://localhost:3000/agenda/${id_agenda}`, {
+    method: 'DELETE'
+  });
+
+  if (resposta.ok) {
+    alert("Agendamento cancelado com sucesso!");
+    await carregarAgendamentos();
+  } else {
+    alert("Erro ao cancelar o agendamento.");
+  }
+}
+
+
 </script>
 
 <!-- HTML com texto em português -->
@@ -153,11 +214,26 @@
 
   {#if diaSelecionado !== null}
     <div class="mt-8 p-6 border rounded bg-gray-50">
+      <div class="mb-6">
+        <label for="servico" class="block text-lg font-semibold mb-2">
+          Selecione o tipo de serviço:
+        </label>
+      
+        <select
+          id="servico"
+          bind:value={servicoSelecionado}
+          class="border rounded p-2 w-full text-lg"
+        >
+          <option value={null} disabled selected>-- Escolha um serviço --</option>
+          {#each servicos as servico}
+            <option value={servico.id_servico}>{servico.tipo_servico}</option>
+          {/each}
+        </select>
+      </div>      
       <div class="flex justify-between items-center mb-4">
         <h3 class="font-semibold text-xl">Horários disponíveis para {diaSelecionado}/{mes + 1}/{ano}</h3>
         <button on:click={() => (diaSelecionado = null)} class="text-gray-600 hover:text-gray-900 text-2xl leading-none">&times;</button>
       </div>
-
       <div class="grid grid-cols-4 gap-6">
         {#each horariosDisponiveis as horario}
           <button
@@ -170,4 +246,27 @@
       </div>
     </div>
   {/if}
+  {#if agendamentos.length > 0}
+  <div class="mt-10 p-6 border rounded bg-gray-50">
+    <h3 class="text-xl font-semibold mb-4">Seus agendamentos</h3>
+
+    <ul class="space-y-2">
+      {#each agendamentos as agendamento}
+        <li class="p-3 border rounded bg-white flex justify-between items-center">
+          <div>
+            <p><strong>Serviço:</strong> {agendamento.tipo_servico}</p>
+            <p><strong>Data:</strong> {new Date(agendamento.data).toLocaleString('pt-BR')}</p>
+          </div>
+          <button
+            on:click={() => cancelarAgendamento(agendamento.id_agenda)}
+            class="text-red-600 hover:underline"
+          >
+            Cancelar
+          </button>
+        </li>
+      {/each}
+    </ul>
+  </div>
+{/if}
+
 </div>
