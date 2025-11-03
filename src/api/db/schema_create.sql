@@ -71,3 +71,4 @@ VALUES (1, 'banho e tosa')
 
 SELECT id, nome, is_admin FROM usuario;
 
+SELECT * FROM servicos;

@@ -109,7 +109,7 @@
       {#if id_produto === null}
       <div>
         <Label for="categoria">Categoria</Label>
-        <Input id="categoria" type="string" bind:value={produtos.categoria} placeholder="Digite a categoria do produto" required class="mt-1"/>
+        <Input id="categoria" type="string" bind:value={produto.categoria} placeholder="Digite a categoria do produto" required class="mt-1"/>
       </div>
       {/if}
       <!-- Botões de ação -->

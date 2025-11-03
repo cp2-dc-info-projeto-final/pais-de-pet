@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { user } from '$lib/stores/user';  // importa a store do usuário logado
   import { get } from 'svelte/store';
-
+  
   const diasSemana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
   let dataAtual = new Date();
@@ -39,11 +39,11 @@
     }
   }
 let servicos: any[] = [];
-let servicoSelecionado: number | null = null;
+let servicoSelecionado: number
 
 async function carregarServicos() {
   try {
-    const resposta = await fetch('http://localhost:3000/agenda');
+    const resposta = await fetch('http://localhost:3000/agenda/servicos');
     if (resposta.ok) {
       servicos = await resposta.json();
     } else {
@@ -54,10 +54,11 @@ async function carregarServicos() {
   }
 }
 
+
 onMount(() => {
   gerarCalendario();
   carregarAgendamentos();
-  carregarServicos(); // 👈 carrega os tipos de serviço ao montar a página
+  carregarServicos();// 👈 carrega os tipos de serviço ao montar a página
 });
 
 
@@ -96,46 +97,46 @@ onMount(() => {
   }
 
   async function agendarHorario(horario: string) {
-    if (diaSelecionado === null) return;
+  if (diaSelecionado === null) return;
 
-    const usuarioLogado = get(user);
-    if (!usuarioLogado || !usuarioLogado.id) {
-      alert('Você precisa estar logado para agendar.');
-      await carregarAgendamentos();
-      return;
-    }
-
-    const idUsuario = usuarioLogado.id;
-
-    const dataSelecionada = new Date(ano, mes, diaSelecionado);
-    const [hora, minuto] = horario.split(":");
-    dataSelecionada.setHours(parseInt(hora), parseInt(minuto), 0, 0);
-
-    const resposta = await fetch('http://localhost:3000/agenda', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        datetime: dataSelecionada.toISOString(),
-        userId: idUsuario,
-        serviceId: servicoSelecionado  // Ajuste conforme o serviço real
-      })
-    });
-
-    if (servicoSelecionado === null) {
+  if (!servicoSelecionado) {
     alert("Selecione um tipo de serviço antes de agendar.");
     return;
-    }
-
-
-    if (resposta.ok) {
-      alert(`Agendamento salvo para ${diaSelecionado}/${mes + 1}/${ano} às ${horario}`);
-      diaSelecionado = null;
-    } else {
-      alert('Erro ao agendar. Tente novamente.');
-    }
   }
+
+  const usuarioLogado = get(user);
+  if (!usuarioLogado || !usuarioLogado.id) {
+    alert('Você precisa estar logado para agendar.');
+    await carregarAgendamentos();
+    return;
+  }
+
+  const idUsuario = usuarioLogado.id;
+
+  const dataSelecionada = new Date(ano, mes, diaSelecionado);
+  const [hora, minuto] = horario.split(":");
+  dataSelecionada.setHours(parseInt(hora), parseInt(minuto), 0, 0);
+
+  const resposta = await fetch('http://localhost:3000/agenda', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      datetime: dataSelecionada.toISOString(),
+      userId: idUsuario,
+      serviceId: servicoSelecionado
+    })
+  });
+
+  if (resposta.ok) {
+    alert(`Agendamento salvo para ${diaSelecionado}/${mes + 1}/${ano} às ${horario}`);
+    diaSelecionado = null;
+    await carregarAgendamentos();
+  } else {
+    const erro = await resposta.json();
+    alert(`Erro ao agendar: ${erro.erro || 'Tente novamente.'}`);
+  }
+}
+
 
   let agendamentos: any[] = [];
 
@@ -224,10 +225,10 @@ onMount(() => {
           bind:value={servicoSelecionado}
           class="border rounded p-2 w-full text-lg"
         >
-          <option value={null} disabled selected>-- Escolha um serviço --</option>
-          {#each servicos as servico}
-            <option value={servico.id_servico}>{servico.tipo_servico}</option>
-          {/each}
+        <option value="" disabled selected>-- Escolha um serviço --</option>
+        {#each servicos as servico}
+          <option value={servico.id_servico}>{servico.tipo_servico}</option>
+        {/each}
         </select>
       </div>      
       <div class="flex justify-between items-center mb-4">

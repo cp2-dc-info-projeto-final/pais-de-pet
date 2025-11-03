@@ -104,7 +104,7 @@
     <div class="hidden lg:block">
       <Table class="w-full max-w-3xl mx-auto my-8 shadow-lg border border-gray-200 rounded-lg">
         <TableHead>
-          <TableHeadCell>ID</TableHeadCell>
+          {#if $user?.is_admin}<TableHeadCell>ID</TableHeadCell>{/if}
           <TableHeadCell>Nome</TableHeadCell>
           <TableHeadCell>Descrição</TableHeadCell>
           <TableHeadCell>Preço</TableHeadCell>
@@ -115,7 +115,7 @@
         <TableBody>
           {#each filteredProdutos as produto}
             <TableBodyRow>
-              <TableBodyCell>{produto.id_produto}</TableBodyCell>
+              {#if $user?.is_admin}<TableBodyCell>{produto.id_produto}</TableBodyCell>{/if}
               <TableBodyCell>{produto.nome}</TableBodyCell>
               <TableBodyCell>{produto.descricao}</TableBodyCell>
               <TableBodyCell>{produto.preco}</TableBodyCell>
