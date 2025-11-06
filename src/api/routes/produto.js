@@ -48,20 +48,7 @@ router.get('/:id_produto', async function(req, res, next) {
   }
 });
 
-/* POST - Criar novo produto */
-router.post('/', async function (req, res, next) {
-  try {
-    const { nome, descricao, preco, estoque,} = req.body;
-
-    // Validação básica
-    if (!nome || !descricao || !preco || !estoque) {
-      return res.status(400).json({
-        success: false,
-        message: 'Nome, descrição, preço e estoque são obrigatórios'
-      });
-    }
-
-  /* GET - Listar categorias (para debug) */
+/* GET - Listar categorias (para debug) */
 router.get('/debug/categorias', async function(req, res, next) {
   try {
     const result = await pool.query('SELECT * FROM categoria');
@@ -78,8 +65,18 @@ router.get('/debug/categorias', async function(req, res, next) {
   }
 });
 
+/* POST - Criar novo produto */
+router.post('/', async function (req, res, next) {
+  try {
+    const { nome, descricao, preco, estoque, categoria_id} = req.body;
 
-
+    // Validação básica
+    if (!nome || !descricao || !categoria_id) {
+      return res.status(400).json({
+        success: false,
+        message: 'Nome, descrição e categoria_id são obrigatórios'
+      });
+    }
 
     // Verificar se o login ou email já existem
     const ProdutosExistes = await pool.query(
@@ -96,10 +93,10 @@ router.get('/debug/categorias', async function(req, res, next) {
 
     // Inserir novo produto
     const result = await pool.query(
-      `INSERT INTO produto (nome, descricao, preco, estoque)
-       VALUES ($1, $2, $3, $4)
+      `INSERT INTO produto (nome, descricao, preco, estoque, categoria_id)
+       VALUES ($1, $2, $3, $4, $5)
        RETURNING id_produto, nome, descricao, preco, estoque, imagem_url, categoria_id, data_cadastro`,
-      [nome, descricao, preco, estoque]
+      [nome, descricao, preco, estoque, categoria_id]
     );
 
     res.status(201).json({

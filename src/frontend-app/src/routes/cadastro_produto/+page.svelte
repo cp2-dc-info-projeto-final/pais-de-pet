@@ -5,20 +5,28 @@
     import api from '$lib/api'; // API backend
     import { goto } from '$app/navigation'; // navegação
     import { ArrowLeftOutline, FloppyDiskAltOutline } from 'flowbite-svelte-icons'; // ícones
-    import { user } from '$lib/stores/user'
+    import { user } from '$lib/stores/user';
+    import { get } from 'svelte/store';
   
     export let id_produto: number | null = null; // id do produto
   
     type Produto = {
       id_produto: number;
-      estoque: string;
       nome: string;
-      preco: string;
       descricao: string;
-      categoria: number;
+      preco: string;
+      estoque: string;
+      categoria_id: string;
     };
   
-    let produto: Produto = { id_produto: 0, nome: '', descricao: '', preco: '', estoque: '', categoria: ''}; // dados do form
+    let produto: Produto = { 
+    id_produto: 0, 
+    nome: '', 
+    descricao: '', 
+    preco: '', 
+    estoque: '', 
+    categoria_id: ''
+    }; // dados do form
     let loading = false;
     let error = '';
     let errorBox: HTMLDivElement | null = null;
@@ -28,7 +36,7 @@
     goto('/login_user');
     }
   }
-
+  console.log(produto)
     onMount(() => {
     checkUser();
   });
@@ -41,10 +49,10 @@
       const payload = {
       nome: produto.nome,
       descricao: produto.descricao,
-      preco: produto.preco,
-      estoque: produto.estoque,
-      categoria: produto.categoria
-      };
+      preco: parseFloat(produto.preco),
+      estoque: parseInt(produto.estoque),
+      categoria_id: parseInt(produto.categoria_id)
+    };
 
       if (id_produto === null) {
         await api.post('/produto', payload);
@@ -98,7 +106,7 @@
       <!-- Campo preço -->
       <div>
         <Label for="preco">Preço</Label>
-        <Input id="preco" type="string" bind:value={produto.preco} placeholder="Digite o preço " required class="mt-1"/>
+        <Input id="preco" type="number" bind:value={produto.preco} placeholder="Digite o preço " required class="mt-1"/>
       </div>
       <!-- Campo estoque -->
       <div>
@@ -109,7 +117,7 @@
       {#if id_produto === null}
       <div>
         <Label for="categoria">Categoria</Label>
-        <Input id="categoria" type="string" bind:value={produto.categoria} placeholder="Digite a categoria do produto" required class="mt-1"/>
+        <Input id="categoria" type='text' bind:value={produto.categoria_id} placeholder="Digite a categoria do produto" required class="mt-1"/>
       </div>
       {/if}
       <!-- Botões de ação -->

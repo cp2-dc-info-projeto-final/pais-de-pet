@@ -1,19 +1,12 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import {
-    Table,
-    TableHead,
-    TableHeadCell,
-    TableBody,
-    TableBodyRow,
-    TableBodyCell,
-    Card,
-    Heading,
-    P
-  } from 'flowbite-svelte';
+  import { Table, TableHead, TableHeadCell, TableBody, TableBodyRow, TableBodyCell, Card, Heading, P } from 'flowbite-svelte';
   import { TrashBinOutline, ShoppingBagOutline } from 'flowbite-svelte-icons';
   import Menu from '../../components/Menu.svelte';
+  import { get } from 'svelte/store';
+  import { user } from '$lib/stores/user';
 
+  
   type Produto = {
     id_produto: number;
     nome: string;
@@ -22,7 +15,7 @@
   };
 
   let carrinho: Produto[] = [];
-
+  
   // Buscar carrinho do localStorage ao montar o componente
   onMount(() => {
     const carrinhoSalvo = localStorage.getItem('carrinho');

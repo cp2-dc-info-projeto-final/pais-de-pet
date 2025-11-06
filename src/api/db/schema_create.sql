@@ -64,11 +64,9 @@ CREATE TABLE produto(
 
 INSERT INTO categoria(id_categoria, nome) VALUES
 
-('3', 'banho e tosa');
-
-INSERT INTO servicos (id_servico, tipo_servico)
-VALUES (1, 'banho e tosa')
+('1', 'potions');
 
 SELECT id, nome, is_admin FROM usuario;
 
-SELECT * FROM servicos;
+
+SELECT * FROM produto;

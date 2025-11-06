@@ -55,6 +55,7 @@
       console.log('Buscando produto com ID:', id);
       const res = await api.get(`/produto/${id}`);
       const data = res.data.data;
+      console.log(data)
       produtos = { 
         id_produto: Number(id), 
         nome: data.nome, 

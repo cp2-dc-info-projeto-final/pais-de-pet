@@ -6,7 +6,7 @@
   import { ArrowLeftOutline, FloppyDiskAltOutline } from 'flowbite-svelte-icons';
   import { page } from '$app/stores';
   import { get } from 'svelte/store';
-  import { user } from '$lib/stores/user'
+  import { user } from '$lib/stores/user';
   const { id } = get(page).params;
 
   function checkUser() {
