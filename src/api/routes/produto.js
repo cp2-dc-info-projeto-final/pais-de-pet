@@ -10,6 +10,19 @@ router.get('/', async function(req, res, next) {
       success: true,
       data: result.rows
     });
+    result.rows.map(async (produto) => {
+      try {
+        let imagem_url = await axios.put("http://localhost:3001/images", {
+          "path": `uploads/${produto.id}/main.png`
+        })
+        return {
+          ...produto,
+          "Image":imagem_url.data.data
+        }
+      } catch (e) {
+        return produto
+      }
+    })
   } catch (error) {
     console.error('Erro ao buscar produto:', error);
     res.status(500).json({
@@ -68,17 +81,17 @@ router.get('/debug/categorias', async function(req, res, next) {
 /* POST - Criar novo produto */
 router.post('/', async function (req, res, next) {
   try {
-    const { nome, descricao, preco, estoque, categoria_id} = req.body;
+    const { nome, descricao, preco, estoque, imagem_url ,categoria_id } = req.body;
 
     // Validação básica
-    if (!nome || !descricao || !categoria_id) {
+    if (!nome || !descricao || !imagem_url || !categoria_id) {
       return res.status(400).json({
         success: false,
-        message: 'Nome, descrição e categoria_id são obrigatórios'
+        message: 'Nome, descrição, imagem_url e categoria_id são obrigatórios'
       });
     }
 
-    // Verificar se o login ou email já existem
+    // Verificar se os produtos já existem
     const ProdutosExistes = await pool.query(
       'SELECT id_produto FROM produto WHERE nome = $1',
       [nome]
@@ -94,9 +107,9 @@ router.post('/', async function (req, res, next) {
     // Inserir novo produto
     const result = await pool.query(
       `INSERT INTO produto (nome, descricao, preco, estoque, categoria_id)
-       VALUES ($1, $2, $3, $4, $5)
+       VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING id_produto, nome, descricao, preco, estoque, imagem_url, categoria_id, data_cadastro`,
-      [nome, descricao, preco, estoque, categoria_id]
+      [nome, descricao, preco, estoque, imagem_url ,categoria_id]
     );
 
     res.status(201).json({
@@ -122,20 +135,20 @@ router.put('/:id_produto', async function(req, res, next) {
     const { nome, preco, estoque, descricao, categoria_id} = req.body;
     
     // Validação básica
-    if (!nome || !descricao || !preco || !estoque || !categoria_id) {
+    if (!nome || !descricao || !preco || !estoque || imagem_url || !categoria_id) {
       return res.status(400).json({
         success: false,
-        message: 'Nome, preco, estoque ,descricao e categoria são obrigatórios'
+        message: 'Nome, preco, estoque ,descricao, imagem e categoria são obrigatórios'
       });
     }
     
     // Verificar se o produto é existe
     const result = await pool.query(
       `UPDATE produto 
-       SET nome = $1, descricao = $2, preco = $3, estoque = $4, categoria_id = $5
-       WHERE id_produto = $6 
+       SET nome = $1, descricao = $2, preco = $3, estoque = $4, imagem_url = $5 ,categoria_id = $6
+       WHERE id_produto = $7 
        RETURNING *`,
-      [nome, descricao, preco, estoque, categoria_id || null, id_produto]
+      [nome, descricao, preco, estoque, imagem_url ,categoria_id || null, id_produto]
     );
     
     res.json({
@@ -167,7 +180,15 @@ router.delete('/:id_produto', async function(req, res, next) {
     }
     
     await pool.query('DELETE FROM produto WHERE id_produto = $1', [id_produto]);
-    
+    try{
+      await axios.delete("http://localhost:3001/images", {
+  data: {
+    path: `uploads/${id_produto}/main.png`
+  }
+})
+    }catch(e){
+      console.error(e)
+    }
     res.json({
       success: true,
       message: 'Produto deletado com sucesso'

@@ -7,6 +7,7 @@
     import { ArrowLeftOutline, FloppyDiskAltOutline } from 'flowbite-svelte-icons'; // ícones
     import { user } from '$lib/stores/user';
     import { get } from 'svelte/store';
+	import ProdutosTable from '../../components/ProdutosTable.svelte';
   
     export let id_produto: number | null = null; // id do produto
   
@@ -16,6 +17,7 @@
       descricao: string;
       preco: string;
       estoque: string;
+      imagem_url: string;
       categoria_id: string;
     };
   
@@ -25,6 +27,7 @@
     descricao: '', 
     preco: '', 
     estoque: '', 
+    imagem_url: '',
     categoria_id: ''
     }; // dados do form
     let loading = false;
@@ -51,6 +54,7 @@
       descricao: produto.descricao,
       preco: parseFloat(produto.preco),
       estoque: parseInt(produto.estoque),
+      imagem_url: produto.imagem_url,
       categoria_id: parseInt(produto.categoria_id)
     };
 
@@ -73,6 +77,22 @@
     }
   }
   
+  function handleFileChange(event) {
+    // Ou faça algo mais útil com os arquivos
+    let imagem_url = event.target.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(imagem_url);
+            reader.onload = event => {
+                 imagem_url = event?.target?.result;
+                 if (event?.target?.result) {
+                    imagem_url.img = event.target.result;
+                 } else {
+                  image_url.img = "";
+                 }
+                 
+            };
+  }
+
   function handleVoltar() {
     goto('/adm_produtos');
   }
@@ -91,10 +111,15 @@
       {#if error}
         <div class="text-red-500 text-center">{error}</div>
       {/if}
+      <!-- Campo imagem -->
+      <div>
+        <label for="imagem_url">Imagem</label>
+        <input id="file-upload" style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e)=>handleFileChange(e)} >
+      </div>
       <!-- Campo produto -->
       <div>
         <Label for="nome">Produto</Label>
-        <Input id="nome" type='string' bind:value={produto.nome} placeholder="Digite o Nome do Produto" required class="mt-1" />
+        <Input id="nome" type='string' bind:value={produto.nome} placeholder="Digite o nome do produto" required class="mt-1" />
       </div>
       <!-- Campo descricao -->
       {#if id_produto === null}

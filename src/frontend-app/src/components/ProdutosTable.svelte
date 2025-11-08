@@ -100,71 +100,17 @@
   {:else if error}
     <div class="my-8 text-center text-red-500">{error}</div>
   {:else}
-    <!-- Tabela para telas médias/grandes -->
-    <div class="hidden lg:block">
-      <Table class="w-full max-w-3xl mx-auto my-8 shadow-lg border border-gray-200 rounded-lg">
-        <TableHead>
-          {#if $user?.is_admin}<TableHeadCell>ID</TableHeadCell>{/if}
-          <TableHeadCell>Nome</TableHeadCell>
-          <TableHeadCell>Descrição</TableHeadCell>
-          <TableHeadCell>Preço</TableHeadCell>
-          <TableHeadCell>Estoque</TableHeadCell>
-          <TableHeadCell>Categoria</TableHeadCell>
-          <TableHeadCell></TableHeadCell>
-        </TableHead>
-        <TableBody>
-          {#each filteredProdutos as produto}
-            <TableBodyRow>
-              {#if $user?.is_admin}<TableBodyCell>{produto.id_produto}</TableBodyCell>{/if}
-              <TableBodyCell>{produto.nome}</TableBodyCell>
-              <TableBodyCell>{produto.descricao}</TableBodyCell>
-              <TableBodyCell>{produto.preco}</TableBodyCell>
-              <TableBodyCell>{produto.estoque}</TableBodyCell>
-              <TableBodyCell>{produto.categoria_id}</TableBodyCell>
-              <TableBodyCell>
-                {#if $user?.is_admin}
-                  <!-- Botão Editar -->
-                  <button
-                    class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent"
-                    title="Editar"
-                    on:click={() => goto(`/adm_produtos/adm_produto/${produto.id_produto}`)}>
-                    <UserEditOutline class="w-5 h-5 text-primary-500" />
-                  </button>
-              
-                  <!-- Botão Excluir -->
-                  <button
-                    title="Remover"
-                    class="p-2 rounded border border-red-100 hover:border-red-300 transition bg-transparent"
-                    on:click={() => openConfirm(produto.id_produto)}
-                    disabled={deletingId === produto.id_produto || loading}>
-                    <TrashBinOutline class="w-5 h-5 text-red-400" />
-                  </button>
-                {/if}
-              
-                <!-- Botão Carrinho (sempre visível) -->
-                <button
-                  title="Adicionar ao Carrinho"
-                  class="p-2 rounded border border-green-200 hover:border-green-400 transition bg-transparent"
-                  on:click={() => adicionarAoCarrinho(produto)}>
-                  <ShoppingBagOutline class="w-5 h-5 text-green-600" />
-                </button>
-              </TableBodyCell>
-            </TableBodyRow>
-          {/each}
-        </TableBody>
-      </Table>
-    </div>
-  
-    <!-- Cards para telas pequenas -->
-    <div class="block lg:hidden">
       <div class="flex flex-col items-center gap-4 my-8 max-w-3xl mx-auto md:grid md:grid-cols-2">
         {#each filteredProdutos as produto}
           <Card class="max-w-sm w-full p-0 overflow-hidden shadow-lg border border-gray-200">
             <div class="px-4 pt-4 pb-2 bg-gray-100 text-left flex items-center justify-between">
+              {#if $user.is_admin}
               <div>
+                <div><img src="" alt=""></div>
                 <div class="text-lg font-semibold text-gray-800 text-left">{produto.id_produto}</div>
                 <div class="text-xs text-gray-400 text-left">ID: {produto.id_produto}</div>
               </div>
+              {/if}
               <div class="flex gap-2">
                 {#if $user?.is_admin}
                   <button
@@ -199,7 +145,7 @@
           </Card>
         {/each}
       </div>
-    </div>
+
   {/if}
   
   <ConfirmModal
@@ -211,3 +157,49 @@
     onCancel={handleCancel}
   />
   
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <h2 class="sr-only">Products</h2>
+
+    <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+      <a href="#" class="group">
+        <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-01.jpg" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" />
+        <h3 class="mt-4 text-sm text-gray-700">Earthen Bottle</h3>
+        <p class="mt-1 text-lg font-medium text-gray-900">$48</p>
+      </a>
+      <a href="#" class="group">
+        <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-02.jpg" alt="Olive drab green insulated bottle with flared screw lid and flat top." class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" />
+        <h3 class="mt-4 text-sm text-gray-700">Nomad Tumbler</h3>
+        <p class="mt-1 text-lg font-medium text-gray-900">$35</p>
+      </a>
+      <a href="#" class="group">
+        <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-03.jpg" alt="Person using a pen to cross a task off a productivity paper card." class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" />
+        <h3 class="mt-4 text-sm text-gray-700">Focus Paper Refill</h3>
+        <p class="mt-1 text-lg font-medium text-gray-900">$89</p>
+      </a>
+      <a href="#" class="group">
+        <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-04.jpg" alt="Hand holding black machined steel mechanical pencil with brass tip and top." class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" />
+        <h3 class="mt-4 text-sm text-gray-700">Machined Mechanical Pencil</h3>
+        <p class="mt-1 text-lg font-medium text-gray-900">$35</p>
+      </a>
+      <a href="#" class="group">
+        <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-05.jpg" alt="Paper card sitting upright in walnut card holder on desk." class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" />
+        <h3 class="mt-4 text-sm text-gray-700">Focus Card Tray</h3>
+        <p class="mt-1 text-lg font-medium text-gray-900">$64</p>
+      </a>
+      <a href="#" class="group">
+        <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-06.jpg" alt="Stack of 3 small drab green cardboard paper card refill boxes with white text." class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" />
+        <h3 class="mt-4 text-sm text-gray-700">Focus Multi-Pack</h3>
+        <p class="mt-1 text-lg font-medium text-gray-900">$39</p>
+      </a>
+      <a href="#" class="group">
+        <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-07.jpg" alt="Brass scissors with geometric design, black steel finger holes, and included upright brass stand." class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" />
+        <h3 class="mt-4 text-sm text-gray-700">Brass Scissors</h3>
+        <p class="mt-1 text-lg font-medium text-gray-900">$50</p>
+      </a>
+      <a href="#" class="group">
+        <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-04-image-card-08.jpg" alt="Textured gray felt pouch for paper cards with snap button flap and elastic pen holder loop." class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" />
+        <h3 class="mt-4 text-sm text-gray-700">Focus Carry Pouch</h3>
+        <p class="mt-1 text-lg font-medium text-gray-900">$32</p>
+      </a>
+    </div>
+  </div>
