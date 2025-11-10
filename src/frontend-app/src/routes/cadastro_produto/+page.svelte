@@ -33,7 +33,9 @@
     let loading = false;
     let error = '';
     let errorBox: HTMLDivElement | null = null;
-  
+
+    let thumbnail;
+
     function checkUser() {
     if (!$user) {
     goto('/login_user');
@@ -79,15 +81,15 @@
   
   function handleFileChange(event) {
     // Ou faça algo mais útil com os arquivos
-    let imagem_url = event.target.files[0];
+    let imagem = event.target.files[0];
             let reader = new FileReader();
-            reader.readAsDataURL(imagem_url);
+            reader.readAsDataURL(imagem);
             reader.onload = event => {
-                 imagem_url = event?.target?.result;
+                 thumbnail = event?.target?.result;
                  if (event?.target?.result) {
-                    imagem_url.img = event.target.result;
+                    produto.imagem_url = event.target.result;
                  } else {
-                  image_url.img = "";
+                  produto.imagem_url = "";
                  }
                  
             };
@@ -112,9 +114,29 @@
         <div class="text-red-500 text-center">{error}</div>
       {/if}
       <!-- Campo imagem -->
-      <div>
-        <label for="imagem_url">Imagem</label>
-        <input id="file-upload" style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e)=>handleFileChange(e)} >
+      <div class="max-w-md mx-auto">
+        {#if thumbnail}
+        <img src="{thumbnail}">
+        {:else}
+        <label for="file-upload" class="flex justify-center items-center h-40 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+          <!-- Pré-visualização da imagem (inicialmente oculta) -->
+          <img id="preview-image" class="hidden h-full w-full object-cover rounded-lg" alt="Pré-visualização da imagem">
+          
+          <!-- Ícone e texto de upload (exibidos quando nenhuma imagem for selecionada) -->
+          <div id="upload-placeholder" class="text-center">
+            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3-3m0 0l-3-3m3 3V8M28 8h12a4 4 0 014 4v4m-32 0l-3-3m0 0l-3-3m3 3V8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <p class="mt-2 text-sm text-gray-600">
+              <span class="font-semibold">Clique para fazer upload</span> ou arraste e solte
+            </p>
+            <p class="text-xs text-gray-500 mt-1">PNG, JPG, GIF até 10MB</p>
+          </div>
+        </label>
+        <!--<input id="file-upload" type="file" class="sr-only" accept="image/*" on:change={handleFileChange}>-->
+          <input id="file-upload" style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e)=>handleFileChange(e)} >
+        {/if}
+        
       </div>
       <!-- Campo produto -->
       <div>
