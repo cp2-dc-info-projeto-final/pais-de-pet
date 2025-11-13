@@ -51,7 +51,7 @@ router.get('/:id', async function(req, res, next) {
 /* POST - Criar novo usuário */
 router.post('/', async function (req, res, next) {
   try {
-    const { nome, usuario, email, senha, telefone } = req.body;
+    const { imagem_url ,nome, usuario, email, senha, telefone, } = req.body;
 
     // Validação básica
     if (!nome || !usuario || !email || !senha || !telefone) {
@@ -91,10 +91,10 @@ router.post('/', async function (req, res, next) {
 
     // Inserir novo usuário
     const result = await pool.query(
-      `INSERT INTO usuario (nome, usuario, email, senha, telefone)
-       VALUES ($1, $2, $3, $4, $5)
-       RETURNING id, nome, usuario, email, telefone, data_criacao`,
-      [nome, usuario, email, hashedPassword, telefone]
+      `INSERT INTO usuario (imagem_url ,nome, usuario, email, senha, telefone)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING id, imagem_url ,nome, usuario, email, telefone, data_criacao`,
+      [imagem_url, nome, usuario, email, hashedPassword, telefone]
     );
 
     res.status(201).json({

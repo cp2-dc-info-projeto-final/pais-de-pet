@@ -7,7 +7,7 @@
     import { ArrowLeftOutline, FloppyDiskAltOutline } from 'flowbite-svelte-icons'; // ícones
     import { user } from '$lib/stores/user';
     import { get } from 'svelte/store';
-	import ProdutosTable from '../../components/ProdutosTable.svelte';
+	  import ProdutosTable from '../../components/ProdutosTable.svelte';
   
     export let id_produto: number | null = null; // id do produto
   
@@ -20,7 +20,7 @@
       imagem_url: string;
       categoria_id: string;
     };
-  
+    
     let produto: Produto = { 
     id_produto: 0, 
     nome: '', 

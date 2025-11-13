@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS adm;
 -- Tabela de usuários
 CREATE TABLE usuario (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    imagem_url TEXT,
     nome TEXT NOT NULL,
     usuario TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
@@ -69,4 +70,4 @@ INSERT INTO categoria(id_categoria, nome) VALUES
 SELECT id, nome, is_admin FROM usuario;
 
 
-SELECT * FROM produto;
+SELECT * FROM usuario;
