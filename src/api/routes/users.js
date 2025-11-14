@@ -54,12 +54,37 @@ router.post('/', async function (req, res, next) {
     const { imagem_url ,nome, usuario, email, senha, telefone, } = req.body;
 
     // Validação básica
-    if (!nome || !usuario || !email || !senha || !telefone) {
+    if (!nome) {
       return res.status(400).json({
         success: false,
-        message: 'Usuario, email e senha são obrigatórios'
+        message: 'Nome do proprietario é obrigatorio'
       });
     }
+    if (!usuario) {
+      return res.status(400).json({
+        success: false,
+        message: 'Identificação do usuario é obrigatório'
+      });
+    }
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email para login é obrigatório'
+      });
+    }
+    if (!senha) {
+      return res.status(400).json({
+        success: false,
+        message: 'Senha é obrigatória'
+      });
+    }
+    if (!telefone) {
+      return res.status(400).json({
+        success: false,
+        message: 'Numero para contato é obrigatório'
+      });
+    }
+    
 
     // Verificar se o login ou email já existem
     const UsuarioExistes = await pool.query(

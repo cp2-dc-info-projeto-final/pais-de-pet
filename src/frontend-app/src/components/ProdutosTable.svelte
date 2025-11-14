@@ -106,14 +106,12 @@
           <Card class="max-w-sm w-full p-0 overflow-hidden shadow-lg border border-gray-200">
             <div class="px-4 pt-4 pb-2 bg-gray-100 text-left flex items-center justify-between">
               <div class="p-5 relative size-64">
-                <h3 class="absolute left-16 bottom-0 size-64"><img  class="" src="{produto.imagem_url}" alt=""></h3>
-                <div class="relative size-32 ...">
-                  <div class="absolute top-53 left-32 size-16 ...">{produto.nome}</div>
-                </div>
+                <h3 class="absolute left-16 bottom-0 size-64"><img  class="" src="{produto.imagem_url}" alt="" width="200px" height="100px"></h3>
+                  <div class="absolute top-58 left-36 size-32">{produto.nome}</div>
+                  <div class="text-lg text-gray-800 absolute bottom-55 right-50 text-left">Estoque: {produto.estoque}</div>
               </div>
               {#if $user.is_admin}
               <div>
-                <div><img src="" alt=""></div>
                 <div class="text-lg font-semibold text-gray-800 text-left">{produto.id_produto}</div>
                 <div class="text-xs text-gray-400 text-left">ID: {produto.id_produto}</div>
               </div>

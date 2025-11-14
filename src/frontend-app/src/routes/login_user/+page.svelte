@@ -36,9 +36,9 @@
     }
   </script>
 
-<div class="pt-20 min-h-screen flex flex-col items-center bg-gradient-to-b from-[#F4E1C1] via-[#E6D3B3] to-[#C49A6C]">
-  <Card class="max-w-md mx-auto mt-10 p-0 overflow-hidden shadow-lg border border-gray-200 rounded-lg bg-gradient-to-b from-[#8d6a2f] via-[#E6D3B3] to-[#804404]">
-    <form class="flex flex-col gap-6 p-6" on:submit|preventDefault={handleSubmit}>
+<div class="pt-20 min-h-screen flex flex-col items-center" style="background-color: #CAF0F8;">
+  <Card class="max-w-md mx-auto mt-10 p-0 overflow-hidden shadow-inherit border border-blue-200 ">
+    <form class="flex flex-col gap-6 p-6" style="background-color: #90E0EF;" on:submit|preventDefault={handleSubmit}>
       <Heading tag="h3" class="mb-2 text-center">Login</Heading>
   
       {#if error}

@@ -135,20 +135,20 @@ router.put('/:id_produto', async function(req, res, next) {
     const { nome, preco, estoque, descricao, categoria_id} = req.body;
     
     // Validação básica
-    if (!nome || !descricao || !preco || !estoque || imagem_url || !categoria_id) {
+    if (!nome || !descricao || !preco || !estoque) {
       return res.status(400).json({
         success: false,
-        message: 'Nome, preco, estoque ,descricao, imagem e categoria são obrigatórios'
+        message: 'Nome, preco, estoque ,descricao e categoria são obrigatórios'
       });
     }
     
     // Verificar se o produto é existe
     const result = await pool.query(
       `UPDATE produto 
-       SET nome = $1, descricao = $2, preco = $3, estoque = $4, imagem_url = $5 ,categoria_id = $6
-       WHERE id_produto = $7 
+       SET nome = $1, descricao = $2, preco = $3, estoque = $4,categoria_id = $5
+       WHERE id_produto = $6
        RETURNING *`,
-      [nome, descricao, preco, estoque, imagem_url ,categoria_id || null, id_produto]
+      [nome, descricao, preco, estoque ,categoria_id || null, id_produto]
     );
     
     res.json({

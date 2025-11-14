@@ -64,7 +64,9 @@
       <!-- Tabela -->
       <Table class="w-full shadow-lg border border-gray-200 rounded-lg">
         <TableHead>
+          {#if $user.is_admin}
           <TableHeadCell>ID</TableHeadCell>
+          {/if}
           <TableHeadCell>Nome</TableHeadCell>
           <TableHeadCell>Descrição</TableHeadCell>
           <TableHeadCell>Preço (R$)</TableHeadCell>
