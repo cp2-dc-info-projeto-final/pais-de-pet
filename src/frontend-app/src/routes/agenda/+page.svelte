@@ -180,15 +180,16 @@ onMount(() => {
 
 </script>
 
+<div class='p-31' style='background-color: #CAF0F8'>
 <!-- HTML com texto em português -->
-<div class="max-w-3xl mx-auto p-6 bg-white rounded shadow">
+<div class="max-w-3xl mx-auto p-6 bg-white rounded shadow" style='background-color: #90E00EF'>
   <div class="flex justify-between items-center mb-6">
     <button on:click={mesAnterior} class="px-4 py-2 rounded hover:bg-gray-200 text-lg">&lt;</button>
     <h2 class="text-2xl font-semibold">{nomesMeses[mes]} {ano}</h2>
     <button on:click={proximoMes} class="px-4 py-2 rounded hover:bg-gray-200 text-lg">&gt;</button>
   </div>
 
-  <div class="grid grid-cols-7 gap-4 text-center font-semibold text-gray-700 text-lg">
+  <div class="grid grid-cols-7 gap-4 text-center font-semibold text-gray-700 text-lg" >
     {#each diasSemana as dia}
       <div>{dia}</div>
     {/each}
@@ -269,5 +270,5 @@ onMount(() => {
     </ul>
   </div>
 {/if}
-
+</div>
 </div>

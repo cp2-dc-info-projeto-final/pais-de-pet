@@ -52,7 +52,7 @@
 
 <Menu />
 
-<div class="min-h-screen pt-20 bg-gradient-to-b from-[#F4E1C1] via-[#E6D3B3] to-[#C49A6C] text-gray-900 dark:text-white p-8">
+<div class="min-h-screen pt-20 text-gray-900 dark:text-white p-8" style="background-color: #CAF0F8;">
   <Heading tag="h1" class="text-4xl font-bold mb-8 text-center">Carrinho de Compras</Heading>
 
   <div class="bg-white dark:bg-gray-800 p-6 rounded-md shadow-md max-w-4xl mx-auto">

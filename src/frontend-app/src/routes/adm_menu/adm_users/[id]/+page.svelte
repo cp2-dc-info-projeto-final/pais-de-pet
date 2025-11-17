@@ -81,7 +81,7 @@
   }
 </script>
 
-<div class="pt-20 min-h-screen flex flex-col items-center bg-gradient-to-b from-[#F4E1C1] via-[#E6D3B3] to-[#C49A6C]">
+<div class="pt-20 min-h-screen flex flex-col items-center" style="background-color: #CAF0F8;">
   <Card class="max-w-md mx-auto mt-10 p-0 overflow-hidden shadow-lg border border-gray-200 rounded-lg">
     <!-- desativa validação HTML5 -->
     <form class="flex flex-col gap-6 p-6" on:submit|preventDefault={handleSubmit} novalidate>

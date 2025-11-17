@@ -5,7 +5,7 @@
 </script>
 
 <div class="relative px-8">
-  <Navbar class="fixed start-0 top-0 z-20 w-full px-2 py-2.5 sm:px-4" style="background-color: #03045E;">
+  <Navbar class="fixed start-0 top-0 z-20 w-full px-2 py-2.5 sm:px-4" style="background-color: #88ccf1;">
     <NavBrand href="/">
       <img src="/images/eveeb.png" class="me-3 h-6 sm:h-14" alt="Logo Evee" />
       <Heading class="navIl" style="color: #0077B6;">Pais de Pets Poderosos</Heading>
@@ -26,8 +26,6 @@
       <NavLi href="/perfil_user" class="navIl" style="color: #0077B6;">Perfil</NavLi>
       <NavLi href="/carrinho" class="navIl" style="color: #0077B6;">Carrinho</NavLi>
       {/if}
-
-      
     </NavUl>
   </Navbar>
 </div>

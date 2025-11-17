@@ -17,12 +17,12 @@
   });
 </script>
 
-<div class="text-center p-100 pt-32 bg-gradient-to-b from-[#F4E1C1] via-[#E6D3B3] to-[#C49A6C]">
+<div class="text-center p-100 pt-32" style="background-color: #CAF0F8;">
   <div class="flex items-center justify-between max-w-3xl mx-auto mb-6">
     <Heading tag="h2" class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">Usuários</Heading>
     <button class="flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold shadow transition" on:click={() => goto('/cadastro_user')}>
       <UserAddOutline class="w-5 h-5" />
-      Adicionar
+      Adicionar Usuario
     </button>
   </div>
   <UsersTable/>
