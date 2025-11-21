@@ -21,6 +21,7 @@
       {#if $user.is_admin}
         <NavLi href="/adm_menu" class="navIl" style="color: #0077B6;">Usuários</NavLi>
       {/if}
+      <NavLi href='/historico' class='navIl' style='color:#0077B6'>historico de compras</NavLi>
       <NavLi href="/adm_produtos" class="navIl" style="color: #0077B6;">Produtos</NavLi>
       <NavLi href="/agenda" class="navIl" style="color: #0077B6;">Agenda</NavLi>
       <NavLi href="/perfil_user" class="navIl" style="color: #0077B6;">Perfil</NavLi>

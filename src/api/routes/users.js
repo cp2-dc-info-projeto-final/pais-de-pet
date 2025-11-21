@@ -51,7 +51,7 @@ router.get('/:id', async function(req, res, next) {
 /* POST - Criar novo usuário */
 router.post('/', async function (req, res, next) {
   try {
-    const { imagem_url ,nome, usuario, email, senha, telefone, } = req.body;
+    const { imagem_url ,nome, usuario, email, senha, telefone, is_admin} = req.body;
 
     // Validação básica
     if (!nome) {
@@ -116,10 +116,10 @@ router.post('/', async function (req, res, next) {
 
     // Inserir novo usuário
     const result = await pool.query(
-      `INSERT INTO usuario (imagem_url ,nome, usuario, email, senha, telefone)
-       VALUES ($1, $2, $3, $4, $5, $6)
+      `INSERT INTO usuario (imagem_url ,nome, usuario, email, senha, telefone, is_admin)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
        RETURNING id, imagem_url ,nome, usuario, email, telefone, data_criacao`,
-      [imagem_url, nome, usuario, email, hashedPassword, telefone]
+      [imagem_url, nome, usuario, email, hashedPassword, telefone, is_admin]
     );
 
     res.status(201).json({
@@ -130,6 +130,72 @@ router.post('/', async function (req, res, next) {
 
   } catch (error) {
     console.error('Erro ao criar usuário:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
+router.put('/:id/tornar-admin', async function(req, res) {
+  try {
+    const { id } = req.params;
+
+    // Verifica se o usuário existe
+    const userExists = await pool.query('SELECT id FROM usuario WHERE id = $1', [id]);
+    if (userExists.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuário não encontrado'
+      });
+    }
+
+    // Atualiza o usuário para admin
+    const result = await pool.query(
+      'UPDATE usuario SET is_admin = true WHERE id = $1 RETURNING id, nome, email, is_admin',
+      [id]
+    );
+
+    res.json({
+      success: true,
+      message: 'Usuário agora é administrador',
+      data: result.rows[0]
+    });
+
+  } catch (error) {
+    console.error('Erro ao promover usuário:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erro interno do servidor'
+    });
+  }
+});
+
+router.put('/:id/remover-admin', async function(req, res) {
+  try {
+    const { id } = req.params;
+
+    const userExists = await pool.query('SELECT id FROM usuario WHERE id = $1', [id]);
+    if (userExists.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Usuário não encontrado'
+      });
+    }
+
+    const result = await pool.query(
+      'UPDATE usuario SET is_admin = false WHERE id = $1 RETURNING id, nome, email, is_admin',
+      [id]
+    );
+
+    res.json({
+      success: true,
+      message: 'Usuário deixou de ser admin',
+      data: result.rows[0]
+    });
+
+  } catch (error) {
+    console.error('Erro ao remover admin:', error);
     res.status(500).json({
       success: false,
       message: 'Erro interno do servidor'

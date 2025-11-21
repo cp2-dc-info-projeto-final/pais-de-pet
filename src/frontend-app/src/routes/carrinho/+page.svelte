@@ -18,16 +18,19 @@
   
   // Buscar carrinho do localStorage ao montar o componente
   onMount(() => {
-    const carrinhoSalvo = localStorage.getItem('carrinho');
-    if (carrinhoSalvo) {
-      try {
-        carrinho = JSON.parse(carrinhoSalvo);
-      } catch (e) {
-        console.error('Erro ao ler carrinho do localStorage:', e);
-        carrinho = [];
-      }
+  const carrinhoSalvo = localStorage.getItem('carrinho');
+  if (carrinhoSalvo) {
+    try {
+      carrinho = JSON.parse(carrinhoSalvo).map(item => ({
+        ...item,
+        preco: Number(item.preco)
+      }));
+    } catch {
+      carrinho = [];
     }
-  });
+  }
+});
+
 
   // Remover item do carrinho
   function removerDoCarrinho(id_produto: number) {
@@ -40,14 +43,42 @@
 
   // Finalizar compra (exemplo simples)
   function finalizarCompra() {
-    if (carrinho.length === 0) {
-      alert('Seu carrinho está vazio.');
-      return;
-    }
-    alert('Compra finalizada com sucesso!');
-    carrinho = [];
-    localStorage.removeItem('carrinho');
+  if (carrinho.length === 0) {
+    alert('Seu carrinho está vazio.');
+    return;
   }
+
+  // Criar registro da compra
+  const novaCompra = {
+    data: new Date().toLocaleString('pt-BR'),
+    itens: carrinho
+  };
+
+  // Buscar histórico já existente
+  const historicoSalvo = localStorage.getItem('historico_compras');
+  let historico = [];
+
+  if (historicoSalvo) {
+    try {
+      historico = JSON.parse(historicoSalvo);
+    } catch {
+      historico = [];
+    }
+  }
+
+  // Adicionar nova compra ao histórico
+  historico.push(novaCompra);
+  localStorage.setItem('historico_compras', JSON.stringify(historico));
+
+  alert('Compra finalizada com sucesso!');
+
+  // Limpar carrinho
+  carrinho = [];
+  localStorage.removeItem('carrinho');
+}
+
+
+
 </script>
 
 <Menu />
@@ -70,7 +101,6 @@
           <TableHeadCell>Nome</TableHeadCell>
           <TableHeadCell>Descrição</TableHeadCell>
           <TableHeadCell>Preço (R$)</TableHeadCell>
-          <TableHeadCell></TableHeadCell>
         </TableHead>
         <TableBody>
           {#each carrinho as item}
@@ -78,9 +108,6 @@
               <TableBodyCell>{item.id_produto}</TableBodyCell>
               <TableBodyCell>{item.nome}</TableBodyCell>
               <TableBodyCell>{item.descricao}</TableBodyCell>
-              <TableBodyCell>
-                {item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-              </TableBodyCell>
               <TableBodyCell>
                 <button
                   title="Remover do Carrinho"
@@ -99,7 +126,7 @@
         <P class="text-xl font-semibold text-gray-800 dark:text-gray-100">
           Total: {totalCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         </P>
-
+        
         <button
           class="flex items-center gap-2 px-5 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow transition"
           on:click={finalizarCompra}>

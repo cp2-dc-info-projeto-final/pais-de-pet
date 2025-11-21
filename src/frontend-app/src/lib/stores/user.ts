@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 export const user = writable(null);
 
-// Estado inicial: tenta carregar do localStorage
+// Carregar do localStorage
 let savedUser: any = null;
 if (typeof localStorage !== 'undefined') {
     const stored = localStorage.getItem('user');
@@ -14,6 +14,8 @@ if (typeof localStorage !== 'undefined') {
         }
     }
 }
+
+user.set(savedUser);
 
 // Sempre que mudar, salva no localStorage
 user.subscribe((value) => {

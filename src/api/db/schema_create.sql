@@ -18,7 +18,8 @@ CREATE TABLE usuario (
     email TEXT NOT NULL UNIQUE,
     senha TEXT NOT NULL,
     telefone TEXT,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_admin BOOLEAN DEFAULT false
 );
 
 CREATE TABLE servicos(
