@@ -1,16 +1,16 @@
 # Manual do Usuário
 
-Nullam vitae velit a eros dignissim bibendum id a enim. Vestibulum hendrerit nisl sed magna gravida, non elementum urna condimentum. Quisque porta tincidunt nunc. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis at varius mauris. Quisque molestie ante imperdiet elit blandit, ac volutpat sem efficitur. Donec nec sem tempus, ullamcorper nisl non, blandit tortor. Etiam suscipit rutrum laoreet. Donec facilisis eros ultrices, venenatis quam nec, feugiat ante. Donec ante eros, consequat nec nibh vitae, porta vehicula orci. Duis nec eros et lorem malesuada sodales. Praesent auctor accumsan ipsum, et volutpat ex porttitor eu. Vestibulum facilisis elementum elit, hendrerit mollis velit pretium in. Curabitur tristique vel augue a sodales. Sed malesuada lacinia porttitor.
+Este manual foi criado para orientar o usuário a navegar e utilizar sem duvidas o site Pais de Pets, um sistema voltado para serviços e produtos para tutores de animais. Aqui você encontrará instruções claras sobre acesso, navegação e uso das principais ferramentas da plataforma. O objetivo do site é facilitar o dia a dia dos donos de pets, oferecendo serviços como agendamento de banho e tosa, compra de produtos, cadastro de usuário e acompanhamento de histórico. Com uma interface intuitiva e moderna, o Pais de Pets busca garantir praticidade, segurança e uma experiência agradável ao usuário.
 
 **Lista das Funcionalidades:**
 
- - [Funcionalidade X](#Funcionalidade-X)
- - [Funcionalidade Y](#Funcionalidade-Y)
- - [Funcionalidade Z](#Funcionalidade-Z)
+ - [Agendar Banho e Tosa](#FAgendar-Banho-e-Tosa)
+ - [Comprar Produtos](#Comprar-Produtos)
+ - [Editar Perfil](#Editar-Perfil)
 
-## Funcionalidade X
+## Agendar Banho e Tosa
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus volutpat molestie justo non tincidunt. Praesent tristique, elit convallis eleifend congue, nisl ex lobortis lorem, ac gravida tellus lacus eu enim. Aliquam urna turpis, convallis id turpis et, iaculis consequat nunc. Proin elit orci, imperdiet nec tristique nec, tincidunt ut nibh. Donec dignissim urna ut erat imperdiet aliquam. Vestibulum augue leo, pellentesque malesuada egestas quis, molestie at lacus. Donec rhoncus finibus lorem, accumsan interdum sapien facilisis sit amet. Integer odio magna, sodales at varius at, dapibus vitae ante. Sed ac ullamcorper ex. Ut in metus ipsum. Duis vulputate porta mi, id venenatis massa ornare vel. Nunc ornare malesuada elit sed feugiat.
+A funcionalidade de agendamento permite que o usuário marque serviços de banho e tosa para seu pet de forma rápida e organizada. É possível selecionar o tipo de serviço desejado (banho, tosa ou os dois), verificar horários disponíveis e confirmar o agendamento diretamente pelo site. Essa ferramenta facilita o planejamento do cuidado com o animal, oferecendo praticidade e evitando filas ou necessidade de contato telefônico. Tudo é feito de maneira intuitiva, garantindo comodidade ao dono do pet.
 
 ![Screenshot 01](screenshots/screenshot01.png)
 
