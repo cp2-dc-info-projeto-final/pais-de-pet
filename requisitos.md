@@ -2,17 +2,15 @@ funcionais;
 
 Página Inicial
 
--apresentações de opções de compra
+-apresenta um carrossel de informações sobre nosso site
 
--botões rápidos para agendar banho e tosa/atendimento médico
+-botões rápidos para agendamento, vitrine e orçamento
 
-Página com Serviços
+Página com serviços
 
--listar os serviços (banho, tosa e produtos)
+-lista os serviços (agendamento; banho, tosa ou banho e tosa e vitrine; petiscos, brinquedos e acessórios)
 
--descrever os serviços 
-
--catálogos de produtos
+-
 
 -botão para "agendar atendimento"
 
