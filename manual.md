@@ -5,7 +5,7 @@ Este manual foi criado para orientar o usuário a navegar e utilizar sem duvidas
 **Lista das Funcionalidades:**
 
  - [Agendar Banho e Tosa](#Agendar-Banho-e-Tosa)
- - [Comprar Produtos](#Comprar-Produtos)
+ - [Adcionar Produtos ao Orçamento](#Adcionar-Produtos-ao-Orçamento)
  - [Editar Perfil](#Editar-Perfil)
 
 ## Agendar Banho e Tosa
@@ -16,7 +16,7 @@ A funcionalidade de agendamento permite que o usuário marque serviços de banho
 
 Aliquam in convallis quam, egestas consectetur felis. Integer in dolor sit amet neque volutpat faucibus ut porttitor libero. Morbi faucibus non purus nec finibus. Pellentesque lacus nunc, ultricies quis enim at, vehicula semper nibh. Ut eget erat blandit, porta nibh sit amet, facilisis felis. Aliquam vitae consequat nisi, ut vestibulum sapien. Sed ornare quis leo quis cursus. Vestibulum ut quam odio. Donec sit amet risus augue. Curabitur venenatis a tortor ac placerat.
 
-## Comprar Produtos
+## #Adcionar Produtos ao Orçamento
 
 Nesta funcionalidade, o usuário pode acessar a loja virtual e adquirir diversos produtos para o pet, como rações, acessórios, brinquedos, higiene, entre outros. A interface apresenta os itens permitindo uma navegação clara e objetiva. Após escolher o produto, o usuário pode visualizar detalhes, adicionar ao carrinho e finalizar a compra de forma segura.
 
