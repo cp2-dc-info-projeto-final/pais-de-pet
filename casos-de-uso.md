@@ -10,143 +10,94 @@ Pré-condições: Acesso ao site
 
 o sistema carrega a index com uma menu para navegar pelo site
 
-o sistema exibe botões para fazer agendamentos(banho, tosa e consulta)
+o sistema exibe botões para fazer cadastro, login e agendamento para o visitante
 
-Usuario seleciona um dos botões de agendamento [A1]
+o sistema exibe botões para vitrine, agendamento, perfil, orçamento para o cliente
 
-o sistema mostra ícone do carrinho de compras 
+o sistema exibe botões para vitrine(ver, remover, adicionar e editar), agendamento, perfil, orçamento e usuarios(ver, remover, adicionar e editar) para o administrador
 
-Usuario seleciona botão de carrinho de compras [A2]
+Visitante seleciona um dos botões de agendamento [A1]
+
+Cliente seleciona um dos botões de agendamento [A2]
+
+O sistema mostra ícone do orçamento
+
+Cliente seleciona botão de orçamento [A3]
 
 Sistema mostra um rodapé com informações para contato
 
 ## Fluxo Alternativo
 
-[A1]O usuario seleciona um agendamento:
-    1. Sistema redireciona usuario para agendamento
+[A1]O visitante seleciona um agendamento:
+    1. Sistema redireciona visitante para fazer o agendamento mostrando dias com seus horarios disponiveis 
+    2. Sistema não permite visitante fazer agendamento, pedindo para que faça um cadastro/login
 
-[A2]O usuario abre o carrinho de compras:
-    1. Sistema redireciona usuario para carrinho de compras
-    2. Sistema mostra itens no carrinho de compra
+[A2]O usuario seleciona um agendamento:
+    1. Sistema redireciona visitante para fazer o agendamento mostrando dias com seus horarios disponiveis 
+    2. Sistema mostra botão "Corfirmar"
+    3. Sistema mostra mensagem "Agendamento confirmado!"
 
-# UC2 – Ver Serviços
+[A3] usuário seleciona botão de orçamento:
+    1.Sistema mostra lista de produtos adicionados ao orçamento do cliente
 
-Objetivo: Mostrar serviços com descrição e botões de agendamento.
+# UC2 – Agendar Atendimento
 
-Atores: Cliente, Visitante
-
-## Fluxo Principal:
-
-O sistema mostra serviços de banho, tosa, banho e tosa,brinquedos e acessórios
-
-O usuario escolhe um serviço[A1] 
-
-O sistema mostra botão de adicionar ao orçamento e botão de agendamento
-
-Usuario clica no botão de adicionar ao orçamento||agendamento[A2]
-
-## Fluxo Alternativo:
-
-[A1]Usuario seleciona um serviço:
-    1. Sistema redireciona para serviço escolhido 
-    2. Sistema motra catalago do serviço selecionado junto com sua descrição
-
-[A2]Usuario seleciona compra&&agendamento
-    1. Sistema redireciona para o produto ou abre um formulario de agendamento 
-
-# UC3 – Agendar Atendimento
-
-Objetivo: Permitir que o cliente agende banho, tosa ou consultas.
+Objetivo: Permitir que o cliente agende banho, tosa ou banho e tosa.
 Atores: Cliente
 
 Pré-condições: Cliente ter um login 
 
 ## Fluxo Principal:
 
-O sistema mostra um formulário contendo:
-
-1.Nome
-2.Telefone
-3.Tipo de pet
-4.Serviço(Banho, tosa e Consulta podendo fazer multi seleções)
-5.Data e hora
+O sistema mostra uma agenda contendo dias, tipos de agendamento e horario disponivel
 
 com um botão escrito "Confirmar"
 
 usuario clica no botão[A1]
 
-Sistema confirma agendamento por e-mail ou WhatsApp.
+Sistema confirma agendamento.
 
 ## Fluxo Alternativo:
 
 [A1]Usuario clica no botão:
-    1. Sistema redireciona usuario para o Index
+    1. Sistema adiciona agendamento, mostrando no site
 
-# UC4 – Fazer Compras Online
+# UC3 – Fazer Orçamento Online
 
-Objetivo: Permitir que o cliente compre produtos e realize pagamento.
+Objetivo: Permitir que o cliente realize orçamento.
 Atores: Cliente
 Pré-condição: estar logado
 
 ## Fluxo Principal:
 
-Sistema mostra o carrinho de compras com itens que foram selecionados
+Sistema mostra o orçamento com itens que foram selecionados
 
-Sistema mostra as opções de pagamento: pix, cartão de crédito, cartão de débito, boleto
+# UC4 – Fazer Cadastro
 
-Usuario seleciona o tipo de pagamento[A1][A2][A3][A4]
-
-Sistema mostra um campo para por CEP, bairro, número de casa e referência
-
-## Fluxo Alternativo:
-
-[A1]Usuario seleciona pagamento por Pix:
-    1.Sistema gera um QR code para pagamento com expiração de 30 minutos
-    2.Sistema gera um codigo aleatorio para pagamento com expiração de 30 minutos
-    3.Sistema confere se pagamento foi feito
-
-[A2]Usuario seleciona pagamento por cartão de crédito:
-    1. Sistema mostra um formulario com informações do cartão
-    2. Sistema confere se as informações adicionadas estão corretas
-    3. Sistema confere se pagamento foi aprovado
-
-[A3]Usuario seleciona pagamento por cartão de débito:
-    1. Sistema mostra um formulario com informações do cartão
-    2. Sistema confere se as informações adicionadas estão corretas
-    3. Sistema confere se pagamento foi aprovado
-
-[A4]Usuario seleciona pagamento por boleto:
-    1. Sistema mostra boleto para pagar com expiração de 3 a 30 dias
-    2. Sistema confere se pagamento foi feito
-
-# UC5 – Fazer Registro
-
-Objetivo: Permitir que o cliente se cadastre
+Objetivo: Permitir que o cliente faça um cadastro
 
 Atores: Cliente
 
 ## Fluxo Principal:
 
 Sistema exibe formulario para cadastro contendo informações de:
-    1. Nome
-    2. CPF
-    3. E-mail
+    1. Usuario
+    2. E-mail
+    3. Nome
     4. Senha
     5. Confirmação de Senha
-    6. Celular
+    6. Telefone
+
+    Exibe botão de cadastrar
     
-    Exibe botão "Confirmar" e botão "Voltar"
-
 Usuario clica em "cadastrar"[A1]
-
-Sistema redireciona para a Index
 
 ## Fluxo Alternativo:
 
 [A1]Sistema verifica campo:
-    1. Sistema notifica usuario que há campo vazio
+    1. Sistema notifica usuario que há campo vazio/invalido
 
-# UC6 – Fazer Login
+# UC5 – Fazer Login
 
 Objetivo: Permitir que o cliente se logue na conta
 
@@ -154,75 +105,39 @@ Atores: Cliente
 
 ## Fluxo Principal:
 
-Sistema exibe formulario para cadastro contendo informações de:
+Sistema exibe formulario para Login contendo informações de:
     1. E-mail
     2. Senha
     
     Exibe botão "Confirmar" e botão "Voltar"
 
-Usuario clica em "logar"[A1]
+Usuario clica em "logar"[A1][A2]
 
-Sistema redireciona para a Index
+Usuario clica em "voltar"[A3]
 
 ## Fluxo Alternativo:
 
-[A1]Sistema verifica campo:
+[A1]Sistema verifica campos:
     1. Sistema notifica usuario que a senha ou e-mail estão incorretos
 
-# UC7 – Acessar Blog
+[A3]Sistema valida campos:
+    1. Sistema loga o usuario
+    2. Sistema Redireciona usuario para index
 
-Objetivo: Permitir leitura de conteudos sobre cuidados.
-Atores: Cliente, Visitante
+[A3]Usuario clica em voltar:
+    1. sistema redireciona usuario para a index
 
-# Fluxo Principal:
 
-Sistema mostra postagens com dicas e curiosidades de fontes confiáveis.
+# UC6 – Gerenciar Vitrine
 
-Usuario clica em alguma postagem[A1]
-
-## Fluxo Alternativo:
-
-[A1]Usuario clica em postagem:
-    1. Sistema redireciona para postagem selecionada
-
-# UC7 – Gerenciar Produtos
-
-Objetivo: Gerenciar produtos
+Objetivo: Gerenciar produtos da vitrine
 Atores: Administrador
 Pré-condição: Login administrativo
 
 ## Fluxo Principal:
 
-Sistema deve permitir Administrador cadastrar produtos para o usuario
+Sistema deve permitir Administrador cadastrar produtos na web vitrine
 
 Sistema deve permitir Administrador excluir produto 
 
 Sistema deve permitir Administrador alterar produto
-
-# UC8 - Gerenciar Blog
-
-Objetivo: Gerenciar Blog
-Atores: Administrador
-Pré-condição: Login Administrativo
-
-## Fluxos Princial:
-
-Sistema deve permitir Administrador adicionar dicas/curiosidades
-
-Sistema deve permitir Administrador excluir dicas/curiosidades
-
-Sistema deve permitir Administrador alterar dicas/curiosidades
-
-# UC9 - Gerenciar Serviços
-
-Objetivo: Gerenciar Serviços
-Atores: Administrador
-Pré-condição: Login Administrativo
-
-## Fluxos Princial:
-
-Sistema deve permitir Administrador adicionar serviços
-
-Sistema deve permitir Administrador excluir serviços
-
-Sistema deve permitir Administrador alterar serviços
