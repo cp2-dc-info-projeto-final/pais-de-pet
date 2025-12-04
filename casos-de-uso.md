@@ -37,11 +37,11 @@ Atores: Cliente, Visitante
 
 ## Fluxo Principal:
 
-O sistema mostra menu de serviços de banho, tosa, vacina e brinquedos
+O sistema mostra serviços de banho, tosa, banho e tosa,brinquedos e acessórios
 
 O usuario escolhe um serviço[A1] 
 
-O sistema mostra botão de adicionar ao carrinho e botão de compra&&agendamento
+O sistema mostra botão de adicionar ao orçamento e botão de compra&&agendamento
 
 Usuario clica no botão de compra||agendamento[A2]
 
