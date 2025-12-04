@@ -5,7 +5,7 @@ Este manual foi criado para orientar o usuário a navegar e utilizar sem duvidas
 **Lista das Funcionalidades:**
 
  - [Agendar Banho e Tosa](#Agendar-Banho-e-Tosa)
- - [Adcionar Produtos ao Orçamento](#Adcionar-Produtos-ao-Orçamento)
+ - [Adicionar Produtos ao Orçamento](#Adcionar-Produtos-ao-Orçamento)
  - [Editar Perfil](#Editar-Perfil)
 
 ## Agendar Banho e Tosa
