@@ -41,9 +41,9 @@ O sistema mostra serviços de banho, tosa, banho e tosa,brinquedos e acessórios
 
 O usuario escolhe um serviço[A1] 
 
-O sistema mostra botão de adicionar ao orçamento e botão de compra&&agendamento
+O sistema mostra botão de adicionar ao orçamento e botão de agendamento
 
-Usuario clica no botão de compra||agendamento[A2]
+Usuario clica no botão de adicionar ao orçamento||agendamento[A2]
 
 ## Fluxo Alternativo:
 
