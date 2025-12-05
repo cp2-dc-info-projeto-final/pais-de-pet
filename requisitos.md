@@ -10,60 +10,40 @@ Página com serviços
 
 -lista os serviços (agendamento; banho, tosa ou banho e tosa e vitrine; petiscos, brinquedos e acessórios)
 
--
-
--botão para "agendar atendimento"
+-botão de "atendimento" e botão "vitrine"
 
 Agendar Online
 
--fazer um formulário contendo nome, telefone, tipo de pet, serviço, data e hora
+-fazer um formulário contendo serviço, data e hora
 
--Confirmar por email ou wtt
+Vitrine Online
 
-Compra Online
-
--carrinho de compra
-
--sistema de pagamento (pix, cartão de crédito ou débito, boleto)
-
--informa endereço (cep, bairro, número da casa, referência)
+-orçamento
 
 Área do Cliente
 
 -executar login e cadastro
 
--favoritos
+-historico de agendamentos
 
--historico de compras e agendamentos
+-editar informações de perfil
 
 Área de contato
 
--informar email, celular e redes sociais
-
-Área de Blog
-
--Dicas de cuidados com pets 
-
--Curiosidades dos animais 
+-informa email, celular e redes sociais
 
 Área administrativa
 
--cadastrar, editar ou excluir produtos, serviços e notícias do blog
-
--gerenciar agendamentos
+-cadastrar, editar ou excluir produtos e serviços
 
 Não funcionais
 
--ser responsivo, funcionar bem em celular, pc e tablet 
+-ser responsivo, funcionar bem em celular, computador e tablet 
 
 -ser rápido
 
--ser seguro, protegendo os dados dos usuário e o pagamento
+-ser de fácil acesso, tendo botões visíveis e objetivos
 
--ser de fácil acesso, tendo botões e textos visíveis e objetivos
-
--ser atualizado, tendo informações recentes dos produtos e das notícias
+-ser atualizado, tendo informações recentes dos produtos
 
 -ser bonito e organizado
-
-a
