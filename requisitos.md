@@ -46,4 +46,4 @@ Não funcionais
 
 -ser atualizado, tendo informações recentes dos produtos
 
--ser bonito e organizado
+-ser organizado
