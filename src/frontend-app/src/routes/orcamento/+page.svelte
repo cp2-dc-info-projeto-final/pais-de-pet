@@ -18,22 +18,21 @@
   
   // Buscar carrinho do localStorage ao montar o componente
   onMount(() => {
-  const carrinhoSalvo = localStorage.getItem('carrinho');
-  if (carrinhoSalvo) {
-    try {
-      carrinho = JSON.parse(carrinhoSalvo).map(item => ({
-        ...item,
-        preco: Number(item.preco)
-      }));
-    } catch {
-      carrinho = [];
+    const carrinhoSalvo = localStorage.getItem('carrinho');
+    if (carrinhoSalvo) {
+      try {
+        carrinho = JSON.parse(carrinhoSalvo);
+      } catch (e) {
+        console.error('Erro ao ler o orçamento localStorage:', e);
+        carrinho = [];
+      }
     }
   }
-});
+);
 
 
-  // Remover item do carrinho
-  function removerDoCarrinho(id_produto: number) {
+  // Remover item do orçamento
+  function removerDoOrçamento(id_produto: number) {
     carrinho = carrinho.filter(item => item.id_produto !== id_produto);
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
   }
@@ -84,13 +83,13 @@
 <Menu />
 
 <div class="min-h-screen pt-20 text-gray-900 dark:text-white p-8" style="background-color: #CAF0F8;">
-  <Heading tag="h1" class="text-4xl font-bold mb-8 text-center">Carrinho de Compras</Heading>
+  <Heading tag="h1" class="text-4xl font-bold mb-8 text-center">Orçamento</Heading>
 
   <div class="bg-white dark:bg-gray-800 p-6 rounded-md shadow-md max-w-4xl mx-auto">
-    <Heading tag="h2" class="text-2xl font-bold mb-4">Itens no Carrinho</Heading>
+    <Heading tag="h2" class="text-2xl font-bold mb-4">Itens no orçamento</Heading>
 
     {#if carrinho.length === 0}
-      <P class="text-gray-600 dark:text-gray-300 text-center">Seu carrinho está vazio.</P>
+      <P class="text-gray-600 dark:text-gray-300 text-center">Seu orçamento está vazio.</P>
     {:else}
       <!-- Tabela -->
       <Table class="w-full shadow-lg border border-gray-200 rounded-lg">
@@ -110,9 +109,9 @@
               <TableBodyCell>{item.descricao}</TableBodyCell>
               <TableBodyCell>
                 <button
-                  title="Remover do Carrinho"
+                  title="Remover do Orçamento"
                   class="p-2 rounded border border-red-200 hover:border-red-400 transition bg-transparent"
-                  on:click={() => removerDoCarrinho(item.id_produto)}>
+                  on:click={() => removerDoOrçamento(item.id_produto)}>
                   <TrashBinOutline class="w-5 h-5 text-red-500" />
                 </button>
               </TableBodyCell>
@@ -126,13 +125,6 @@
         <P class="text-xl font-semibold text-gray-800 dark:text-gray-100">
           Total: {totalCarrinho.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         </P>
-        
-        <button
-          class="flex items-center gap-2 px-5 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow transition"
-          on:click={finalizarCompra}>
-          <ShoppingBagOutline class="w-5 h-5" />
-          Finalizar Compra
-        </button>
       </div>
     {/if}
   </div>

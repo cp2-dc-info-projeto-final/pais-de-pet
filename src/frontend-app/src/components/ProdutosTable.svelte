@@ -123,7 +123,7 @@
   on:click={() => adicionarAoCarrinho(produto)}
 >
   <ShoppingBagOutline class="w-5 h-5" />
-  Adicionar ao Carrinho
+  Adicionar ao Orçamento
 </button>
             </div>
             <div class="flex gap-2">

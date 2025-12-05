@@ -24,9 +24,7 @@ CREATE TABLE usuario (
 
 CREATE TABLE servicos(
     id_servico INTEGER NOT NULL PRIMARY KEY,
-    tipo_servico TEXT NOT NULL,
-    id_usuario BIGINT,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+    tipo_servico TEXT NOT NULL
 );
 
 CREATE TABLE agenda (
@@ -64,11 +62,21 @@ CREATE TABLE produto(
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO categoria(id_categoria, nome) VALUES
+CREATE TABLE adm (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    usuario_id BIGINT NOT NULL UNIQUE REFERENCES usuario(id) ON DELETE CASCADE,
+    data_promocao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-('1', 'potions');
+INSERT INTO servicos(id_servico, tipo_servico) VALUES
+('1', 'banho' );
 
-SELECT id, nome, is_admin FROM usuario;
+INSERT INTO usuario (imagem_url, nome, usuario, email, senha, telefone, is_admin) VALUES
+-- senha efelantinho
+(NULL, 'hermenegildo', 'hermenegildo','hermenegildo@email.com', '12345678', '12345678' ,'TRUE'),
+(NULL, 'zoroastra', 'zoroastra' ,'zoroastra@email.com', '12345678', '12345678' ,'FALSE');
+
+SELECT * FROM servicos;
 
 
 SELECT * FROM usuario;

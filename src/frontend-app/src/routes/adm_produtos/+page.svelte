@@ -21,7 +21,7 @@
 <div class="text-center p-8 pt-32" style="background-color: #CAF0F8;">
   <div class="flex items-center justify-between max-w-3xl mx-auto mb-6">
     <Heading tag="h2" class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-      Produtos
+      Vitrine
     </Heading>
 
     {#if $user?.is_admin}

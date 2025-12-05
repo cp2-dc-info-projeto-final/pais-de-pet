@@ -52,7 +52,7 @@
         usuario: user.usuario,
         email: user.email,
         senha: user.senha,
-        telefone: user.telefone,
+        telefone: user.telefone
       };
 
       if (user.senha.length < 8){

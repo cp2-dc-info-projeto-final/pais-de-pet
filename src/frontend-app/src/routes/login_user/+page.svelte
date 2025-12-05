@@ -24,7 +24,7 @@
           error = res.data.message || 'Erro ao fazer login.';
         }
       } catch (e) {
-          const res = await api.get(`/users/login`);
+          //const res = await api.post(`/users/login`);
           error = res.data.message;
       } finally {
         loading = false;

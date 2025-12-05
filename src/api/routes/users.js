@@ -51,7 +51,7 @@ router.get('/:id', async function(req, res, next) {
 /* POST - Criar novo usuário */
 router.post('/', async function (req, res, next) {
   try {
-    const { imagem_url ,nome, usuario, email, senha, telefone, is_admin} = req.body;
+    const { imagem_url ,nome, usuario, email, senha, telefone, is_admin } = req.body;
 
     // Validação básica
     if (!nome) {
@@ -85,7 +85,6 @@ router.post('/', async function (req, res, next) {
       });
     }
     
-
     // Verificar se o login ou email já existem
     const UsuarioExistes = await pool.query(
       'SELECT id FROM usuario WHERE usuario = $1',
@@ -118,7 +117,7 @@ router.post('/', async function (req, res, next) {
     const result = await pool.query(
       `INSERT INTO usuario (imagem_url ,nome, usuario, email, senha, telefone, is_admin)
        VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id, imagem_url ,nome, usuario, email, telefone, data_criacao`,
+       RETURNING id, imagem_url ,nome, usuario, email, telefone, data_criacao, is_admin`,
       [imagem_url, nome, usuario, email, hashedPassword, telefone, is_admin]
     );
 

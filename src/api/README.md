@@ -113,7 +113,7 @@ psql -h localhost  -d pais_de_pets -U paizao -W
 ```
 
 ## Endpoints da API
-
+  
 Aqui uma breve documentação dos endpoints da API de usuários. Para executar o serviço de backend se certifique que o serviço do postgres está online e execute o comando abaixo. Lembre-se de acessar a porta 3000 para testar.
 
 ```bash

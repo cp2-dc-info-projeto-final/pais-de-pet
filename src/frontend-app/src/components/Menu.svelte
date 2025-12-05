@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
   import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Heading } from "flowbite-svelte";
   import { user } from '$lib/stores/user';
   import { produto } from '$lib/stores/produto';
@@ -18,14 +20,13 @@
       <NavLi href="/agenda" class="navIl" style="color: #0077B6;">Agenda</NavLi>
       {/if}
       {#if $user}
-      {#if $user.is_admin}
-        <NavLi href="/adm_menu" class="navIl" style="color: #0077B6;">Usuários</NavLi>
-      {/if}
-      <NavLi href='/historico' class='navIl' style='color:#0077B6'>historico de compras</NavLi>
-      <NavLi href="/adm_produtos" class="navIl" style="color: #0077B6;">Produtos</NavLi>
-      <NavLi href="/agenda" class="navIl" style="color: #0077B6;">Agenda</NavLi>
+      <NavLi href="/agenda" class="navIl" style="color: #0077B6;">Agendamento</NavLi>
+      <NavLi href="/adm_produtos" class="navIl" style="color: #0077B6;">Vitrine</NavLi>
+      <NavLi href="/orcamento" class="navIl" style="color: #0077B6;">Orçamento</NavLi>
       <NavLi href="/perfil_user" class="navIl" style="color: #0077B6;">Perfil</NavLi>
-      <NavLi href="/carrinho" class="navIl" style="color: #0077B6;">Carrinho</NavLi>
+
+      <NavLi href="/adm_menu" class="navIl" style="color: #0077B6;">Usuários</NavLi>
+
       {/if}
     </NavUl>
   </Navbar>
