@@ -38,4 +38,4 @@ Este portal visa otimizar o tempo dos clientes e expandir a visibilidade dos pro
 
 **Modelagem do Banco de Dados**
 
-![Diagrama de Banco de Dados](diagramas/diagrama-exemplo.png)
+![Diagrama de Banco de Dados](diagramas/diagrama_banco_de_dados.drawio.png)
