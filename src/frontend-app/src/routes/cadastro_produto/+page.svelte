@@ -11,11 +11,6 @@
   
     export let id_produto: number | null = null; // id do produto
 
-    const is_admin = Boolean(req.body.is_admin) && 
-                 (req.body.is_admin !== 'false');
-
-    const is_admin = req.body.is_admin || false; // Valor padrão false
-
     type Produto = {
       id_produto: number;
       nome: string;

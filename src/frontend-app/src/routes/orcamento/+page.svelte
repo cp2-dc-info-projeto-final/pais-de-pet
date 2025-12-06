@@ -52,13 +52,6 @@
   // Calcular total do carrinho
   $: totalCarrinho = carrinho.reduce((acc, item) => acc + item.preco,0);
 
-  // Finalizar compra (exemplo simples)
-  function finalizarCompra() {
-  if (carrinho.length === 0) {
-    alert('Seu carrinho está vazio.');
-    return;
-  }
-
   // Criar registro da compra
   const novaCompra = {
     data: new Date().toLocaleString('pt-BR'),
@@ -86,7 +79,7 @@
   // Limpar carrinho
   carrinho = [];
   localStorage.removeItem('carrinho');
-}
+
 
 
 

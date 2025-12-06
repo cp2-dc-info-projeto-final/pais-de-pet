@@ -69,7 +69,14 @@ CREATE TABLE adm (
 );
 
 INSERT INTO servicos(id_servico, tipo_servico) VALUES
-('1', 'banho' );
+('1', 'banho' ),
+('2', 'tosa' ),
+('3', 'banho e tosa');
+
+INSERT INTO categoria(id_categoria, nome) VALUES
+('1', 'brinquedo'),
+('2', 'petisco'),
+('3', 'acessorio')
 
 INSERT INTO usuario (imagem_url, nome, usuario, email, senha, telefone, is_admin) VALUES
 -- senha efelantinho
