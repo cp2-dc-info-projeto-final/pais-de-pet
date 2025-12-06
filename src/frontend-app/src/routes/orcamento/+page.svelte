@@ -5,6 +5,7 @@
   import Menu from '../../components/Menu.svelte';
   import { get } from 'svelte/store';
   import { user } from '$lib/stores/user';
+  import { goto } from '$app/navigation';
 
   
   type Produto = {
@@ -16,6 +17,17 @@
 
   let carrinho: Produto[] = [];
   
+
+  function checkUser() {
+    if (!$user) {
+    goto('/login_user');
+    }
+  }
+  
+  onMount(() => {
+    checkUser();
+  });
+
   // Buscar carrinho do localStorage ao montar o componente
   onMount(() => {
     const carrinhoSalvo = localStorage.getItem('carrinho');

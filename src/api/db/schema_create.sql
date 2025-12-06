@@ -19,7 +19,7 @@ CREATE TABLE usuario (
     senha TEXT NOT NULL,
     telefone TEXT,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    is_admin BOOLEAN DEFAULT false
+    is_admin BOOLEAN
 );
 
 CREATE TABLE servicos(

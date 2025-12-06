@@ -4,6 +4,42 @@
   import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Heading } from "flowbite-svelte";
   import { user } from '$lib/stores/user';
   import { produto } from '$lib/stores/produto';
+
+  async function handleSubmit() {
+      loading = true;
+      const res = await api.get(`/users/${localUser.id}`);
+      error = res.data.message;
+      try {
+        const payload = {
+          email: localUser.email,
+          nome: localUser.nome,
+          telefone: localUser.telefone,
+          senha: localUser.senha
+        };
+  
+        await api.put(`/users/${localUser.id}`, payload);
+  
+        // Atualiza store
+        user.set({
+          ...get(user),
+          email: localUser.email,
+          nome: localUser.nome,
+          telefone: localUser.telefone
+        });
+  
+        goto('/perfil_user');
+      } catch (e) {
+          const res = await api.get(`/users/${localUser.id}`);
+          error = res.data.message;
+      } finally {
+        loading = false;
+      }
+    }
+  
+    function handleLogout() {
+      user.set(null);
+      goto('/login_user');
+    }
 </script>
 
 <div class="relative px-8">
@@ -24,9 +60,10 @@
       <NavLi href="/adm_produtos" class="navIl" style="color: #0077B6;">Vitrine</NavLi>
       <NavLi href="/orcamento" class="navIl" style="color: #0077B6;">Orçamento</NavLi>
       <NavLi href="/perfil_user" class="navIl" style="color: #0077B6;">Perfil</NavLi>
-
+      {#if $user.is_admin}
       <NavLi href="/adm_menu" class="navIl" style="color: #0077B6;">Usuários</NavLi>
-
+      {/if}
+      <NavLi class="navIl" style="color: #0077B6;" onclick={handleLogout}> Sair</NavLi>
       {/if}
     </NavUl>
   </Navbar>

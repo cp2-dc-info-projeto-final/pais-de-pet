@@ -17,7 +17,17 @@
   
     let loading = false;
     let error = '';
+    
+    function checkUser() {
+    if (!$user) {
+    goto('/login_user');
+    }
+  }
   
+  onMount(() => {
+    checkUser();
+  });
+
     onMount(() => {
       const u = get(user);
       if (!u) {

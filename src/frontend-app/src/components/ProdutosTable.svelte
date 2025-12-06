@@ -127,7 +127,7 @@
 </button>
             </div>
             <div class="flex gap-2">
-              {#if $user?.is_admin}
+              {#if $user.is_admin}
                 <button
                   class="p-2 rounded border border-primary-200 hover:border-primary-400 transition bg-transparent w-full justify-center t-2 flex items-center gap-2 px-4 py-2"
                   title="Editar"

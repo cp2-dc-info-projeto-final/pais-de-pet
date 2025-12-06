@@ -118,7 +118,7 @@ router.post('/', async function (req, res, next) {
       `INSERT INTO usuario (imagem_url ,nome, usuario, email, senha, telefone, is_admin)
        VALUES ($1, $2, $3, $4, $5, $6, $7)
        RETURNING id, imagem_url ,nome, usuario, email, telefone, data_criacao, is_admin`,
-      [imagem_url, nome, usuario, email, hashedPassword, telefone, is_admin]
+      [imagem_url, nome, usuario, email, hashedPassword, telefone, is_admin || false ]
     );
 
     res.status(201).json({
