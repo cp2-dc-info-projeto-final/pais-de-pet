@@ -21,9 +21,13 @@ Para detalhes técnicos de como executar o projeto consulte o [README da API](sr
 
 ## Descrição do Projeto
 
-Nunc aliquet lobortis tristique. In pretium nisi vitae viverra venenatis. Ut iaculis sem quis arcu ornare interdum. In id condimentum arcu, sed ornare sem. Aliquam consequat at dolor eget sagittis. Praesent nec ante eget felis porttitor cursus eget suscipit urna. Sed consequat consectetur tristique.
+O projeto consiste no desenvolvimento de um website para a loja "Pais de Pets", focado em duas funcionalidades principais:
 
-Sed sit amet ante sem. Nunc id sapien metus. Etiam lobortis in purus ut porta. Vestibulum at libero euismod felis feugiat tempus eu sagittis lorem. Vestibulum ultrices, mi euismod eleifend viverra, odio enim volutpat tortor, sed condimentum odio est id purus. Sed at leo vel ligula luctus bibendum in sed justo. Duis sodales consectetur vestibulum. Morbi libero quam, varius ac sodales eget, bibendum eu quam. In accumsan ac turpis vitae porttitor. Nulla eget velit in nisl vulputate sagittis. Phasellus ligula mi, viverra id vehicula nec, varius eget diam. Vestibulum id ultricies nulla, vel sagittis lorem. Sed aliquam dictum lacus quis maximus.
+Agendamento Online: Permitir que os usuários agendem serviços de Banho e Tosa para seus pets de forma rápida e conveniente, sem sasir do conforto de sua casa.
+
+Vitrine Virtual e Orçamento: Apresentar os produtos disponíveis na loja física, funcionando como uma vitrine online. Os usuários poderão selecionar múltiplos produtos para gerar um orçamento detalhado, que incluirá o preço de cada item e o valor total da lista, facilitando a consulta e a preparação para a compra na loja física.
+
+Este portal visa otimizar o tempo dos clientes e expandir a visibilidade dos produtos da loja.
 
 ## Documentação
 
