@@ -32,6 +32,8 @@
 
 <Menu />
 
+Na Pais de Pets, acreditamos que cuidar de um animal é um gesto de amor. Por isso, oferecemos tudo o que você precisa para garantir saúde, conforto e felicidade ao seu melhor amigo. Aqui, tratamos cada pet como um membro importante da família com carinho, respeito e dedicação.
+
 <div class="text-center p-32 p-60 " style="background-color: #CAF0F8;">
   <!-- Carousel personalizado -->
   <div class="relative max-w-4xl mx-auto overflow-hidden rounded-lg " >
@@ -83,7 +85,10 @@
       {/each}
     </div>
   </div>
-  
+<br> 
+Oferecermos cuidados, acessórios e comidas para seu pet, seja ele um canino, felino ou ave, pensamos com amor e cuidado para uma maravilhosa experiência do seu pet no nosso estabelecimento 
+
+
 </div>
 
 <style>
